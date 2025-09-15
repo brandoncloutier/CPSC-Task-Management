@@ -53,15 +53,6 @@ h2 {
   color: #e6bfbf;
 }
 
-button {
-  padding: 9px 25px;
-  background: rgb(236, 232, 232);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
 button:hover {
     background: rgb(236, 232, 232);
 }
@@ -105,6 +96,7 @@ main {
 }  */
 
 .container {
+  position: relative;
   width: 500px;
   background-color: #fdf2f8;
   border-radius: 10px;
@@ -126,6 +118,27 @@ h1 {
   font-family: "Georgia", serif;
 }
 
+.close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.close:hover {
+  background: rgba(0,0,0,0.1);
+  color: #000;
+}
 
 input {
   border-radius: 5px;
