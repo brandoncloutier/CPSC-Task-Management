@@ -1,31 +1,112 @@
-.wrapper {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Roboto", sans-serif;
+li, a {
+  font-family: "Georgia";
+  font-weight: 500;
+  font-size: 16px;
+  color: #270730;
+  text-decoration: none;
 }
 
 header {
-  width: 100%;
-  padding: 16px;
-  text-align: center;
-  font-size: 32px;
+  position:fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  background: rgba(255,255,255,.25);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  border-bottom: 1.5px solid rgba(255,255,255,.35);
+}
+
+h2 {
+  font: 700 26.5px Georgia, serif;
+}
+
+.nav__links {
+  list-style: none;
+  display:flex;
+  gap: 32px;
+  margin:0;
+  padding: 0;
+}
+
+.nav__links li {
+  display: inline-block;
+}
+
+.nav__links li a {
+  font: 700 26.5px Georgia, serif;
+  color: #000000;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover{
+  background: rgba(240, 234, 234, 0.39);
+  color: #e6bfbf;
+}
+
+button {
+  padding: 9px 25px;
+  background: rgb(236, 232, 232);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+button:hover {
+    background: rgb(236, 232, 232);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.2); 
+  pointer-events:none;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  /*Ali, the 4 colors for the gradient background were generated from AI. */
+  background: linear-gradient(135deg,#fde68a,#fca5a5,#c4b5fd);
+}
+
+button, input, select, textarea, label {
+  font-family: "Georgia";
 }
 
 main {
-  flex-grow: 1;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-container {
+/* .page-title {
+  position: absolute;
+  top: 22vh;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  font-size: 48px;
+  text-align: center;
+}  */
+
+.container {
   width: 500px;
-  background-color: rgb(229, 231, 235);
+  background-color: #fdf2f8;
   border-radius: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
@@ -39,16 +120,18 @@ form {
   padding: 32px 100px;
 }
 
+
 h1 {
-  text-align: center;
-  font-size: 24px;
+  font-size: 28px;
+  font-family: "Georgia", serif;
 }
+
 
 input {
   border-radius: 5px;
   padding: 10px 12px;
   font-size: 16px;
-  border: 1px solid rgb(137, 138, 139);
+  border: 1px solid rgb(169, 170, 172);
 }
 
 .input-section {
@@ -65,7 +148,7 @@ button {
   background-color: rgb(59, 130, 246);
   color: white;
   padding: 10px 14px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 button:hover {
