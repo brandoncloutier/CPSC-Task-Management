@@ -139,6 +139,26 @@ h1 {
   color: #000;
 }
 
+.signup-close {
+  position: absolute;
+  width: fit-content;
+  top: 12px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.signup-close:hover {
+  background: rgba(0,0,0,0.1);
+  color: #000;
+}
+
 input {
   border-radius: 5px;
   padding: 10px 12px;
