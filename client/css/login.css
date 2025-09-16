@@ -101,6 +101,7 @@ main {
   background-color: #fdf2f8;
   border-radius: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: none;
 }
 
 form {
@@ -167,4 +168,17 @@ button {
 button:hover {
   cursor: pointer;
   background-color: rgb(55, 120, 225);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }

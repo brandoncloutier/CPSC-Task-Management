@@ -19,14 +19,14 @@
                     <ul class = "nav__links">
                         <li><a href = "#dummyLink">Home</a></li>
                         <li><a href = "#dummyLink">About</a></li>
-                        <li><a href = "#dummyLink" class = "button open-button">Login</a></li>
+                        <li><a href = "#" class = "button open-button">Login</a></li>
                     </ul>
                 </nav>
             </header>
             <main>
-                <div class = "container">
+                <div class = "modal-overlay" id = "modalOverlay">
+                    <div class = "container" id = "loginContainer">
                     <form>
-                        <h1>Login</h1>
                         <button type = "button" class = "close">&times;</button>
                         <div class="input-section">
                             <label for="email">Email</label>
@@ -36,10 +36,56 @@
                             <label for="password">Password</label>
                             <input id="password" type="password"/>
                         </div>
-                        <button>Sign up</button>
+                        <button type = "submit">Login</button>
                     </form>
+                    </div>
                 </div>
             </main>
         </div>
+        <script>
+            /*Ali, youtube tutorials were used for opening and closing functions of the MODAL. 
+            "Build a Popup With JavaScript": https://www.youtube.com/watch?v=MBaw_6cPmAw&t=300s&ab_channel=WebDevSimplified
+            "How to Make A Popup...": https://www.youtube.com/watch?v=AF6vGYIyV8M&ab_channel=GreatStack */
+            document.addEventListener('DOMContentLoaded', function() {
+                const openButton = document.querySelector('.open-button');
+                const closeButton = document.querySelector('.close');
+                const modalOverlay = document.getElementById('modalOverlay');
+                const loginContainer = document.getElementById('loginContainer');
+
+                function openModal() {
+                    modalOverlay.style.display = 'flex';
+                    loginContainer.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeModal() {
+                    modalOverlay.style.display = 'none';
+                    loginContainer.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+
+                openButton.addEventListener('click', openModal);
+                closeButton.addEventListener('click', closeModal);
+
+                modalOverlay.addEventListener('click', function(event) {
+                    if (event.target === modalOverlay) {
+                        closeModal();
+                    }
+                });
+                // Used Deepseek for the code below that triggers the closeModal() function when the user clicks the "escape" button.
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape' && modalOverlay.style.display === 'flex') {
+                        closeModal();
+                    }
+                });
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    /* brandon, j, we start implementing the login functionality here. Whoever wants to do this ? */
+                    alert('login functionality we will do later');
+                    closeModal();
+                });
+            });
+        </script>
     </body>
 </html>
