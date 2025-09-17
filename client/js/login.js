@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeButton = document.querySelector('.login-close');
     const modalOverlay = document.getElementById('login-modalOverlay');
     const loginContainer = document.getElementById('loginContainer');
+    const loginForm = document.getElementById('login-form');
 
     function openModal() {
         modalOverlay.style.display = 'flex';
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
             closeModal();
         }
     });
-    // Used Deepseek for the code below that triggers the closeModal() function when the user clicks the "escape" button.
+
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' && modalOverlay.style.display === 'flex') {
             closeModal();
