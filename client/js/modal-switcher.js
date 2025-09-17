@@ -1,30 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const loginModal = document.getElementById('login-modalOverlay');
-    const signupModal = document.getElementById('signup-modalOverlay');
+    const loginLinks = document.querySelectorAll('.login-open-button');
+    const signupLinks = document.querySelectorAll('.signup-open-button');
+    const loginModal = document.getElementById('showLogin');
+    const signupModal = document.getElementById('showSignup');
 // document.addEventListener('DOMContentLoaded', function()
     // Show login and hide signup box
-    window.showLoginModal = function() {
-        signupModal.style.display = 'none';
-        loginModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    };
+    function goLogin(e) {
+        e?.preventDefault();
+        window.closeSignupModal?.();
+        window.openLoginModal?.();
+    }
 
-    // Show signup and hide login box
-    window.showSignupModal = function() {
-        signupModal.style.display = 'flex';
-        loginModal.style.display = 'none';
-        document.body.style.overflow = 'hidden';
-    };
-    // show signup
-    document.getElementById('showSignup')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.showSignupModal();
+    function goSignup(e) {
+        e?.preventDefault();
+        window.closeLoginModal?.();
+        window.openSignupModal?.();
+    }
+
+    loginLinks.forEach(a => {
+        a.addEventListener('click', goLogin);
+    });
+    signupLinks.forEach(a => {
+        a.addEventListener('click', goSignup);
     });
 
-    // show login
-    document.getElementById('showLogin')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.showLoginModal();
+    showLogin?.addEventListener('click', goLogin);
+    showSignup?.addEventListener('click', goSignup);
+
+    loginOverlay.addEventListener('click', function (e) {
+        if (e.target === modalOverlay) {
+            window.closeLoginModal?.();
+        }
     });
 
+    signupOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) {
+            window.closeSignupModal?.();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Escape') return;
+        const loginOpen = document.getElementById('login-modalOverlay')?.style.display === 'flex';
+        const signupOpen = document.getElementById('signup-modalOverlay')?.style.display === 'flex';
+        if (loginOpen) {
+            window.closeLoginModal?.();
+        }
+
+        if (signupOpen) {
+            window.closeSignupModal?.();
+        }
+    });
 });

@@ -20,20 +20,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto';
     }
 
-    openButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
+    window.openLoginModal = openModal;
+    window.closeLoginModal = closeModal;
 
-    modalOverlay.addEventListener('click', function (event) {
-        if (event.target === modalOverlay) {
-            closeModal();
-        }
+    openButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
     });
 
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && modalOverlay.style.display === 'flex') {
-            closeModal();
-        }
+    closeButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal();
     });
+
+
     const form = document.querySelector('#login-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -41,4 +41,5 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('login functionality we will do later');
         closeModal();
     });
+
 });

@@ -39,7 +39,7 @@
                         </div>
                         <div class="input-section">
                             <label for="password">Password</label>
-                            <input id="password" type="password"/>
+                            <input id="password" type="password" placeholder = "Enter your password"/>
                         </div>
                         <button type="submit">Login</button>
                         <div class = "signup-link">
@@ -65,13 +65,38 @@
                             <input id="email" type="email" placeholder = "person@gmail.com" required/>
                         </div>
                         <div class="input-section">
-                            <label for="password">Password</label>
-                            <input id="password" type="password"/>
+                            <label for="signupPassword">Password</label>
+                            <div class = "password-field">
+                                <input id="signupPassword" type="password" placeholder = "Enter your password"/>
+                                <button
+                                    type = "button"
+                                    class = "toggle-password"
+                                    id = "toggle-password"
+                                    data-target = "signupPassword"
+                                    data-showing = "false"
+                                    aria-label = "Show password"
+                                    aria-pressed = "false"
+                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+                                </button>
+                            </div>
                         </div>
                         <!-- CONFIRM PASSWORD SECTION -->
                         <div class = "input-section">
                             <label for="confirmPassword">Confirm Password</label>
-                            <input id = "confirmPassword" type = "password" placeholder = "Confirm your password" required/>
+                            <div class = "password-field">
+                            <input id="confirmPassword" type="password" placeholder = "Confirm  your password"/>
+                            <button
+                                type = "button"
+                                class = "toggle-password"
+                                data-target = "confirmPassword"
+                                data-showing="false"
+                                aria-label = "Show password"
+                                aria-pressed = "false"
+                            >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+                            </button>
+                            </div>
                         </div>
                         <button type="submit">Signup</button>
 
@@ -83,7 +108,7 @@
                 </div>
             </main>
         </div>
-        <script>
+        <!-- <script>
         // So this is my combined js code , which fixes the second-click issue I was having before with the 
         // href links... but you guys can take a look and try to see if you can implement it without the code i have below.
             document.addEventListener('DOMContentLoaded', function() {
@@ -189,11 +214,10 @@
             });
             
             console.log('All modals initialized successfully');
-        });
-        </script>
-        <script src = "../js/modal-switcher.js"></script>
-        <script src="../js/login.js"></script>
-        <script src="../js/signup.js"></script>
-        <!-- <script src = "../js/modal-switcher.js"> </script> -->
+        }); -->
+        <!-- </script> -->
+        <script defer src="../js/login.js"></script>
+        <script defer src="../js/signup.js"></script>
+        <script defer src = "../js/modal-switcher.js"></script>
     </body>
 </html>

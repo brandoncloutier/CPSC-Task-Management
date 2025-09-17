@@ -7,6 +7,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalOverlay = document.getElementById('signup-modalOverlay');
     const signupContainer = document.getElementById('signupContainer');
     const signupForm = document.getElementById('signup-form');
+    const EYE = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>';
+    const EYEOFF = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>';
+    const signupOverlay = document.getElementById('signup-modalOverlay');
+
+    signupOverlay.addEventListener('click', function(e) {
+        // Used this youtube tutorial: https://www.youtube.com/watch?v=sVBRJ-0AzXw&t=99s&ab_channel=TylerPotts
+        // and ChatGPT to write the logic of this password toggle function. 
+        const btn = e.target.closest('.toggle-password');
+        if (!btn) return;
+
+        const inputId = btn.getAttribute('data-target');
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        const showing = input.type === 'password';
+        input.type = showing ? 'text' : 'password';
+
+        btn.innerHTML = showing ? EYE : EYEOFF;
+        
+        btn.dataset.showing = String(showing);
+        btn.setAttribute('aria-pressed', String(showing));
+        btn.setAttribute('aria-label', showing ? 'Hide password' : 'Show password');
+    });
 
     function openModal() {
         modalOverlay.style.display = 'flex';
@@ -20,20 +43,20 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto';
     }
 
-    openButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
+    window.openSignupModal = openModal;
+    window.closeSignupModal = closeModal;
 
-    modalOverlay.addEventListener('click', function (event) {
-        if (event.target === modalOverlay) {
-            closeModal();
-        }
+    openButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+
     });
-    // Used Deepseek for the code below that triggers the closeModal() function when the user clicks the "escape" button.
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && modalOverlay.style.display === 'flex') {
-            closeModal();
-        }
+
+    closeButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal();
     });
+
     const form = document.querySelector('#signup-form');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -41,4 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('signup functionality we will do later');
         closeModal();
     });
-});
+
+
+
+    });
