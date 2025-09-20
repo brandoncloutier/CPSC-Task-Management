@@ -1,4 +1,4 @@
-// NEW: forgot.js — self-contained; no changes to other files needed
+// forgot.js file
 document.addEventListener('DOMContentLoaded', function () {
   const openButtons = document.querySelectorAll('.forgot-open-button, #showForgot');
   const closeButton = document.querySelector('.forgot-close');
@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.style.overflow = 'auto';
   }
 
-  // Expose so your existing switcher (if needed) can call them
   window.openForgotModal = openModal;
   window.closeForgotModal = closeModal;
 
@@ -32,18 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // X button closes
   closeButton?.addEventListener('click', function (e) {
     e.preventDefault();
     closeModal();
   });
 
-  // Click outside container closes (handled here only)
   modalOverlay.addEventListener('click', function (e) {
     if (e.target === modalOverlay) closeModal();
   });
 
-  // ESC closes (handled here only)
+  // ESC closes 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
       closeModal();
@@ -62,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     closeModal();
   });
 
-  // "Log In" link inside Forgot → back to Login
+  // "Log In" link inside Forgot 
   const backToLogin = document.getElementById('forgotShowLogin');
   backToLogin?.addEventListener('click', function (e) {
     e.preventDefault();
