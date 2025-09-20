@@ -58,6 +58,9 @@
                         <div class = "signup-link">
                             Don't have an account? <a href = "#" id = "showSignup">Sign Up</a>
                         </div>
+                        <div class="forgot-link">
+                            <a href="#" id="showForgot" class="forgot-open-button">Forgot password?</a>
+                        </div>
                     </form>
                     </div>
                 </div>
@@ -118,6 +121,27 @@
                         </div>
                     </form>
                     </div>
+                </div>
+                <!-- FORGOT PASSWORD MODAL -->
+                <div class="modal-overlay" id="forgot-modalOverlay">
+                <div class="container" id="forgotContainer">
+                    <form id="forgot-form">
+                    <button type="button" class="forgot-close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+
+                    <div class="input-section">
+                        <label for="forgotEmail">Email</label>
+                        <input id="forgotEmail" type="email" placeholder="person@gmail.com" required />
+                    </div>
+
+                    <button type="submit">Send reset link</button>
+
+                    <div class="login-link">
+                        Remembered it? <a href="#" id="forgotShowLogin">Log In</a>
+                    </div>
+                    </form>
+                </div>
                 </div>
             </main>
         </div>
@@ -232,5 +256,6 @@
         <script defer src="../js/login.js"></script>
         <script defer src="../js/signup.js"></script>
         <script defer src = "../js/modal-switcher.js"></script>
+        <script defer src="../js/forgot.js"></script>
     </body>
 </html>

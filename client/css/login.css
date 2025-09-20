@@ -245,3 +245,22 @@ button:hover {
   width: auto !important;
   height: auto;
 }
+
+.forgot-close {
+  position: absolute;
+  width: fit-content;
+  top: 12px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+.forgot-close:hover {
+  background: rgba(0,0,0,0.1);
+  color: #000;
+}
