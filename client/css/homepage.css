@@ -1,5 +1,16 @@
-.hero-container {
+/* We also could use a .wrapper main to make sure the cards are at the bottom, but i found another solution */
+/* .wrapper main {
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 90px;
+}
+.hero-container,
+.features-section {
+    width: 100%;
+} */
+.hero-container {
+    display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -7,26 +18,137 @@
     margin: 0 auto;
     padding: 40px 20px;
     gap: 40px;
+    text-align: center;
 }
 
-.hero h1{
+.hero h1 {
     font: 650 36px Georgia, serif;
     margin-bottom: 24px;
     color: #270730;
     margin-bottom: 40px;
+    text-align: center;
     line-height: 1.2;
 }
 
-.hero h1 i {
+.hero h1 i{
     font-style: italic;
     color: #5b21b6;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .hero p {
-    font: 400 20px Georgia, serif;
+    font: 400 18px Georgia, serif;
     font-weight: 500;
     color: #000000;
     margin-bottom: 40px;
     line-height: 1.6;
+    text-align: center;
+}
+
+.cta-button {
+    display: block;
+    background-color: #5b21b6;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 9999px;
+    font: 500 18px Georgia, serif;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(91,33,182, 0.2);
+    display: inline-block;
+    width: fit-content;
+    min-width: unset;
+    margin: 0 auto;
+}
+
+.cta-button:hover {
+    background-color: #7c3aed;
+}
+
+/* .container{
+    display: grid;
+    place-items: center;
+    margin-inline: 1.5rem;
+    padding-block: 5rem;
+}
+
+.card__container {
+    display: grid;
+    row-gap: 3.5rem;
+}
+
+.card__article {
+    position: relative;
+}
+
+.card__img {
+    width: 328px;
+    border-radius: 1.5rem;
+}
+
+.card__data{
+    width:280px;
+    padding: 1.5 rem 2rem;
+    box-shadow: 0 8px 24px hlsa(0, 0%, 0%, 0.15);
+    border-radius: 1rem;
+    position: absolute;
+    bottom: -2rem;
+    left:0;
+    right: 0;
+    margin-inline: auto;
+    opacity: 0;
+} */
+
+.features-section {
+    padding: 60px 20px;
+    position: absolute;
+    bottom: 2rem;
+
+    
+}
+
+.features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.feature {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #5b21b6;
+}
+
+.feature h3 {
+    font: 600 22px Georgia, serif;
+    color: #270730;
+    margin-bottom: 15px;
+}
+
+.feature p {
+    font: 400 16px Georgia, serif;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .features-container {
+        grid-template-columns: 1fr;
+    }
 }

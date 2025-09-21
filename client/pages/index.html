@@ -35,11 +35,36 @@
                             Our task management app helps you stay organized and productive. 
                             Create, track, and complete your tasks with ease. Sign up today to get started!
                         </p>
-                    </section>
-                    <div class = "hero-image">
-                        
-                    </div>
+                        <button class = "cta-button signup-open-button"> Get Started </button>
+                    </section>  
+                
+
+                    
                 </div>
+
+                <section class="features-section">
+                    <div class="features-container">
+                        <div class="feature">
+                            <div class = "feature-icon">✅</div>
+                            <h3> Add and organize tasks</h3>
+                            <p> Create and manage your tasks at the click of a button.</p>
+                        </div>
+
+                        <div class = "feature">
+                            <div class="feature-icon">📅</div>
+                            <h3> Track upcoming deadlines.</h3>
+                            <p> Set due dates and prioritize tasks to stay on top.</p>
+                        </div>
+
+                        <div class = "feature">
+                            <div class = "feature-icon">📈</div>
+                            <h3> View your progress easily.</h3>
+                            <p> Monitor your productivity and complete your goals.</p>
+                        </div>
+
+                    </div>
+                </section>
+                
                 
                 
                 <!-- LOGIN MODAL -->
@@ -161,121 +186,11 @@
                 </div>
             </main>
         </div>
-        <!-- <script>
-        // So this is my combined js code , which fixes the second-click issue I was having before with the 
-        // href links... but you guys can take a look and try to see if you can implement it without the code i have below.
-            document.addEventListener('DOMContentLoaded', function() {
-            const loginModal = document.getElementById('login-modalOverlay');
-            const signupModal = document.getElementById('signup-modalOverlay');
-            const loginContainer = document.getElementById('loginContainer');
-            const signupContainer = document.getElementById('signupContainer');
-            const loginOpenButtons = document.querySelectorAll('.login-open-button');
-            const signupOpenButtons = document.querySelectorAll('.signup-open-button');
-            const loginCloseBtn = document.querySelector('.login-close');
-            const signupCloseBtn = document.querySelector('.signup-close');
-            const showLoginLink = document.getElementById('showLogin');
-            const showSignupLink = document.getElementById('showSignup');
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            
-            // Function to open login modal
-            function openLoginModal() {
-                signupModal.style.display = 'none';
-                loginModal.style.display = 'flex';
-                loginContainer.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            }
-            
-            // Function to open signup modal
-            function openSignupModal() {
-                loginModal.style.display = 'none';
-                signupModal.style.display = 'flex';
-                signupContainer.style.display = 'block';
-                document.body.style.overflow = 'hidden';
-            }
-            
-            // Function to close all modals
-            function closeModals() {
-                loginModal.style.display = 'none';
-                signupModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-            
-            // Add event listeners to open login modal
-            loginOpenButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openLoginModal();
-                });
-            });
-            
-            // Add event listeners to open signup modal
-            signupOpenButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openSignupModal();
-                });
-            });
-            
-            // Close buttons
-            loginCloseBtn.addEventListener('click', closeModals);
-            signupCloseBtn.addEventListener('click', closeModals);
-            
-            // Switch to signup from login
-            showSignupLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                openSignupModal();
-            });
-            
-            // Switch to login from signup
-            showLoginLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                openLoginModal();
-            });
-            
-            // Close modals when clicking outside
-            loginModal.addEventListener('click', function(e) {
-                if (e.target === loginModal) {
-                    closeModals();
-                }
-            });
-            
-            signupModal.addEventListener('click', function(e) {
-                if (e.target === signupModal) {
-                    closeModals();
-                }
-            });
-            
-            // Close modals with Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeModals();
-                }
-            });
-            
-            // Form submissions
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Login functionality would be implemented here!');
-                closeModals();
-            });
-            
-            signupForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Signup functionality would be implemented here!');
-                closeModals();
-            });
-            
-            console.log('All modals initialized successfully');
-        }); -->
-        <!-- </script> -->
         <script defer src="../js/login.js"></script>
         <script defer src="../js/signup.js"></script>
-<<<<<<< HEAD
         <script defer src = "../js/modal-switcher.js"></script>
         <script defer src="../js/forgot.js"></script>
-=======
         <script defer src = "../js/modal-switcher.js"></script>"
->>>>>>> a2fa493 (added text for homepage and css styling.)
+
     </body>
 </html>
