@@ -1,7 +1,26 @@
 /*Ali, youtube tutorials were used for opening and closing functions of the MODAL. 
     "Build a Popup With JavaScript": https://www.youtube.com/watch?v=MBaw_6cPmAw&t=300s&ab_channel=WebDevSimplified
     "How to Make A Popup...": https://www.youtube.com/watch?v=AF6vGYIyV8M&ab_channel=GreatStack */
-document.addEventListener('DOMContentLoaded', function () {
+
+/* For Google Firebase, email and password authentication was implemented with this youtube tutorial:
+   https://www.youtube.com/watch?v=WM178YopjfI */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyCZPyRZ9yzEARK1iHNnDz9E-lnnfhF2esc",
+        authDomain: "task-manager-2d534.firebaseapp.com",
+        projectId: "task-manager-2d534",
+        storageBucket: "task-manager-2d534.firebasestorage.app",
+        messagingSenderId: "38793812705",
+        appId: "1:38793812705:web:b3bbd5f7faf96f816675a0",
+        measurementId: "G-NE30PTQEC9"
+    }
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    document.addEventListener('DOMContentLoaded', function () {
     const openButton = document.querySelector('.signup-open-button');
     const closeButton = document.querySelector('.signup-close');
     const modalOverlay = document.getElementById('signup-modalOverlay');
@@ -57,14 +76,30 @@ document.addEventListener('DOMContentLoaded', function () {
         closeModal();
     });
 
-    const form = document.querySelector('#signup-form');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        /* brandon, j, we start implementing the login functionality here. Whoever wants to do this ? */
-        alert('signup functionality we will do later');
-        closeModal();
+    /* Our event listener was different than what was shown in the Firebase youtube tutorial,
+    so we used ChatGPT for enacting the code below (signup form event listener) */
+    signupForm.addEventListener('submit', async function(event) {
+        event.preventDefault(); // this prevents the page from refreshing.
+        alert('Signup form submitted!') // testing ...
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('signupPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert("Oops! The passwords don't match!")
+            return;
+        }
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+            const user = userCredential.user;
+            alert("Account created!")
+            closeModal();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error: ' + error.message);
+        }
     });
-
-
-
-    });
+});
