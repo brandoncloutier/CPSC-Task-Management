@@ -1,54 +1,63 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     const loginLinks = document.querySelectorAll('.login-open-button');
-//     const signupLinks = document.querySelectorAll('.signup-open-button');
-//     const loginModal = document.getElementById('showLogin');
-//     const signupModal = document.getElementById('showSignup');
-// // document.addEventListener('DOMContentLoaded', function()
-//     // Show login and hide signup box
-//     function goLogin(e) {
-//         e?.preventDefault();
-//         window.closeSignupModal?.();
-//         window.openLoginModal?.();
-//     }
+document.addEventListener('DOMContentLoaded', function() {
+    const loginLinks = document.querySelectorAll('#showLogin')
+    const signupLinks = document.querySelectorAll('#showSignup')
+    // const loginLinks = document.querySelectorAll('.login-open-button');
+    // const signupLinks = document.querySelectorAll('.signup-open-button');
+    // const loginModal = document.getElementById('showLogin');
+    // const signupModal = document.getElementById('showSignup');
 
-//     function goSignup(e) {
-//         e?.preventDefault();
-//         window.closeLoginModal?.();
-//         window.openSignupModal?.();
-//     }
+    //Show login and hide signup box
+    function goLogin(e) {
+        e?.preventDefault();
+        window.closeSignupModal?.();
+        window.closeForgotModal?.();
+        window.openLoginModal?.();
+    }
 
-//     loginLinks.forEach(a => {
-//         a.addEventListener('click', goLogin);
-//     });
-//     signupLinks.forEach(a => {
-//         a.addEventListener('click', goSignup);
-//     });
+    function goSignup(e) {
+        e?.preventDefault();
+        window.closeLoginModal?.();
+        window.closeForgotModal?.();
+        window.openSignupModal?.();
+    }
 
-//     showLogin?.addEventListener('click', goLogin);
-//     showSignup?.addEventListener('click', goSignup);
+    loginLinks.forEach(a => {
+        a.addEventListener('click', goLogin);
+    });
+    signupLinks.forEach(a => {
+        a.addEventListener('click', goSignup);
+    });
 
-//     loginOverlay.addEventListener('click', function (e) {
-//         if (e.target === modalOverlay) {
-//             window.closeLoginModal?.();
-//         }
-//     });
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal-overlay')) {
+            e.target.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
 
-//     signupOverlay.addEventListener('click', function(e) {
-//         if (e.target === modalOverlay) {
-//             window.closeSignupModal?.();
-//         }
-//     });
 
-//     document.addEventListener('keydown', function(e) {
-//         if (e.key !== 'Escape') return;
-//         const loginOpen = document.getElementById('login-modalOverlay')?.style.display === 'flex';
-//         const signupOpen = document.getElementById('signup-modalOverlay')?.style.display === 'flex';
-//         if (loginOpen) {
-//             window.closeLoginModal?.();
-//         }
 
-//         if (signupOpen) {
-//             window.closeSignupModal?.();
-//         }
-//     });
-// });
+    // loginOverlay.addEventListener('click', function (e) {
+    //     if (e.target === modalOverlay) {
+    //         window.closeLoginModal?.();
+    //     }
+    // });
+
+    // signupOverlay.addEventListener('click', function(e) {
+    //     if (e.target === modalOverlay) {
+    //         window.closeSignupModal?.();
+    //     }
+    // });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Escape') return;
+
+        const modals = document.querySelectorAll('.modal-overlay');
+        modals.forEach(modal => {
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+});
