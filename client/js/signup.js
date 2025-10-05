@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         openModal()
     })
-    closeButton?.addEventListener("click", () => {
+    closeButton?.addEventListener("click", (e) => {
         e.preventDefault()
         closeModal()
     })
