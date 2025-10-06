@@ -1,0 +1,53 @@
+
+.project-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px; 
+}
+
+
+.project-card {
+  width: 100%;
+  max-width: 640px;
+  background: #fdf2f8; 
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 28px 28px 32px;
+}
+
+.title {
+  font: 700 26px Georgia, serif;
+  color: #270730;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font: 400 16px Georgia, serif;
+  color: #4b5563;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+
+.project-card .input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.project-card textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+
+
+@media (max-width: 640px) {
+  .project-card { padding: 22px 18px; }
+  .row-2 { grid-template-columns: 1fr; }
+}

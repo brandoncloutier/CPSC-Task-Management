@@ -65,7 +65,7 @@
     loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const email = document.getElementById('email').value.trim();
+        const email = document.getElementById('loginEmail').value.trim();
         const password = document.getElementById('loginPassword').value;
 
         if (!email || !password) {

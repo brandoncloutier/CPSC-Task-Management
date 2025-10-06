@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Project • Task Manager</title>
+
+    
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/create-project.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <header>
+        <h2>Task Manager</h2>
+        <nav>
+          <ul class="nav__links">
+            <li><a href="#" id="navAccount">My account</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="project-main">
+        <section class="project-card">
+          <h1 class="title">Create a New Project</h1>
+
+
+          <form id="createProjectForm">
+            <div class="input-section">
+              <label for="projName">Project name</label>
+              <input id="projName" type="text" placeholder="e.g., CityFix Civic Portal" required />
+            </div>
+
+            <div class="input-section">
+              <label for="projDesc">Description</label>
+              <textarea id="projDesc" rows="4" placeholder="Describe your project"></textarea>
+            </div>
+
+            <div class="input-section">
+                <label for="projDue">Due date</label>
+                <input id="projDue" type="date" />
+            </div>            
+
+            <button type="submit">Create Project</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <!-- Your existing modules (keep paths relative to /pages/) -->
+    <script type="module" src="../js/supabaseClient.js"></script>
+    <script type="module" src="../js/forgot.js"></script>
+    <script type="module" src="../js/modal-switcher.js"></script>
+    <script type="module" src="../js/signup.js"></script>
+    <script type="module" src="../js/login.js"></script>
+
+    <!-- Page logic -->
+    <script type="module" src="../js/create-project.js"></script>
+  </body>
+</html>
