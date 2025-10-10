@@ -1,0 +1,36 @@
+<!DOCTYPE html> 
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> Your Projects </title>
+        <link rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="../css/login.css" />
+        <link rel="stylesheet" href="../css/projects.css"/>
+    </head>
+    <body class = "projects-page">
+        <div class = "wrapper">
+            <header>
+                <h1 class = "title"> Task Manager </h1>
+                <div id = "projectsContainer" class = "projects-container"></div>
+                <nav>
+                    <ul class = "nav__links">
+                        <li><a href="#" id="navAccount">My account</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class = "project-main">
+                <section class = "projects-section">
+                    <h1 class = "title"> My Projects</h1>
+                    <div id = "projectsContainer" class = "projects-container">
+                        <!-- Projects added here from the js file... -->
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script type = "module" src = "../js/supabaseClient.js"></script>
+        <script type = "module" src = "../js/projects.js"></script>
+    </body>
+</html>
