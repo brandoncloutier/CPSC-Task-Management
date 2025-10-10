@@ -34,6 +34,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
                 container.appendChild(card);
         });
+
+        const create_project_button = document.createElement("div");
+        create_project_button.innerHTML = `<a href="./create-project.html"><button id="create-project-btn">Create Project</button></a>`
+        create_project_button.id = "create-project-btn-wrapper"
+        container.appendChild(create_project_button)
     } catch (error) {
         console.error("Error loading projects:", error.message);
         const msg = error?.message || String(error);
