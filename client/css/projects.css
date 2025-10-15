@@ -1,18 +1,18 @@
 .projects-page .project-main {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding-top: 30px;
+    display: block;
+    padding-top: calc(70px + 24px);
 }
 
 .projects-page .projects-section {
     width: 100%;
+    padding-top: 8px;
 }
 
 .projects-page .title{
     text-align: center;
     font: 700 26px Georgia, serif;
-    margin: 18px 0;
+    margin: 0 0 18px;
 }
 
 .projects-page .projects-container  {
