@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <h2>${project.name}</h2>
                 <p>${project.description || "No description provided."}</p>
                 <p><strong>Due:</strong> ${project.duedate || "No due date set"}</p>
+                <button class="view-project-btn" data-id="${project.project_id}">View Project</button>
                 `;
                 container.appendChild(card);
         });
@@ -39,6 +40,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         create_project_button.innerHTML = `<a href="./create-project.html"><button id="create-project-btn">Create Project</button></a>`
         create_project_button.id = "create-project-btn-wrapper"
         container.appendChild(create_project_button)
+
+        container.addEventListener("click", (e) => {
+            if (e.target.classList.contains("view-project-btn")) {
+                const projectId = e.target.dataset.id;
+                window.location.href = `./project.html?id=${projectId}`
+            }
+        })
     } catch (error) {
         console.error("Error loading projects:", error.message);
         const msg = error?.message || String(error);
