@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <i data-lucide = "trash-2"></i>
                     </button>
                 </div>
-                `;
+                `; 
                 container.appendChild(card);
                 lucide.createIcons(); // re-create icons after adding new elements
         });
