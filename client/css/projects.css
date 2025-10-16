@@ -51,3 +51,60 @@
     display: flex;
     justify-content: center;
 }
+
+.project-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.view-project-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.view-project-button:hover {
+    background: #0056b3;
+}
+
+.delete-project-button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+}
+
+.delete-project-button:hover {
+    background: #a71d2a;
+}
+
+.delete-project-button:disabled {
+    background: #f5c6cb;
+    cursor: not-allowed;
+}
+
+.delete-project-button i {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+.delete-project-button .spinner {
+    animation: spin 1s linear infinite;
+}
+
