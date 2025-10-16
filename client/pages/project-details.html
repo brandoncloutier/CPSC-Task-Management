@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0"/>
+        <title>Project Details</title>
+        <link rel = "stylesheet" href = "../css/main.css"/>
+        <link rel = "stylesheet" href = "../css/project-details.css"/>
+    </head>
+    <body>
+        <div class = "wrapper">
+            <header>
+                <a href = "./index/html"><h2> Task Manager </h2></a>
+                <nav>
+                    <ul class = "nav__links">
+                        <li><a href = "./projects.html"> Projects</a></li>
+                        <li><a href = "#" id = "navAccount">My account</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <main class = "project-details-main">
+                <section class = "project-details-section">
+                    <div id = "projectContainer" class = "project-container">
+                        <p> Loading project... </p>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script type = "module" src = "../js/supabaseClient.js"></script>
+        <script type = "module" src = "../js/project-details.js"></script>
+    </body>
+</html>

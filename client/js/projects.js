@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         container.addEventListener("click", (e) => {
             if (e.target.classList.contains("view-project-btn")) {
                 const projectId = e.target.dataset.id;
-                window.location.href = `./project.html?id=${projectId}`
+                window.location.href = `./project-details.html?id=${projectId}`
             }
         })
     } catch (error) {
