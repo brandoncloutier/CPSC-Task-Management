@@ -108,3 +108,33 @@
     animation: spin 1s linear infinite;
 }
 
+.no-project {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.no-project p {
+    font-size: 24px;
+    color: black;
+    font-size: italic;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+}
+
+.create-first-project-button {
+    display: inline-block;
+    background-color: #5b21b6;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font: 500 16px Georgia, serif;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}

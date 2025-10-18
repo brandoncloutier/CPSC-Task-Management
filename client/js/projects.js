@@ -17,7 +17,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // No data, then tell there are no projects.
         if (!projects || projects.length === 0) {
-            container.innerHTML = "<p><italicize>No projects found. Please create one to get started.</italicize></p>";
+            container.innerHTML = `
+                <div class="no-project">
+                <p> You have no projects yet. Click the button below to create your first project!</p>
+                <a href="./create-project.html" class = "create-first-project-button"> Create Project</a>
+                </div>
+            `;
             return;
         }
         // Clear loading state

@@ -51,3 +51,29 @@
   .project-card { padding: 22px 18px; }
   .row-2 { grid-template-columns: 1fr; }
 }
+
+.project-header {
+  position: relative;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #5b21b6;
+  font: 500 16px Georgia, serif;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.3s;
+}
+
+
+.back-button svg {
+  width: 20px;
+  height: 20px;
+}
+.title {
+  margin: 0;
+}
