@@ -44,9 +44,13 @@
     line-height: 1.6;
     text-align: center;
 }
-
+/* 
 .cta-button {
-    display: block;
+    display: inline-block;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    text-decoration: none;
     background-color: #5b21b6;
     color: white;
     padding: 12px 30px;
@@ -64,6 +68,36 @@
 
 .cta-button:hover {
     background-color: #7c3aed;
+} */
+
+.get-started-btn {
+    display: inline-block;
+    background-color: #5b21b6;
+    color: white;
+    padding: 16px 40px;
+    border-radius: 9999px;
+    font: 500 18px Georgia, serif;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(91, 33, 182, 0.2);
+    text-align: center;
+    text-decoration: none;
+    min-width: 180px;
+    min-height: 54px;
+    line-height: 1.2;
+    position: relative;
+    z-index:1;
+}
+
+.get-started-btn:hover {
+    background-color: #7c3aed;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(91, 33, 182, 0.3);
+}
+
+.get-started-btn:active {
+    transform: translateY(0);
 }
 
 /* .container{
