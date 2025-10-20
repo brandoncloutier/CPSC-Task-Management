@@ -63,6 +63,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p>Tasks functionality coming soon...</p>
             </div>`
         ;
+
+        const addBtn = document.querySelector(".add-task-button")
+        if (addBtn) {
+            addBtn.addEventListener("click", () => {
+                const url = new URL("./create-task.html", window.location.href)
+                url.searchParams.set("project_id", projectId)
+                window.location.href = url.toString()
+            })
+        }
     } catch (error) {
         // log and show error message if something not working...
         console.error("Error loading project details:", error.message);
