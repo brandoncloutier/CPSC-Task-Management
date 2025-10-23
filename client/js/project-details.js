@@ -131,9 +131,43 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
                 list.appendChild(card);
             });
-
-            tasksSection.innerHTML = '<h3>Tasks</h3>';
+             
+            // To keep search bar right above task cards
+            tasksSection.innerHTML = `
+            <h3>Tasks</h3>
+            <div class="search-container">
+                <input type="text" id="searchTasks" placeholder="Search tasks..." />
+            </div>
+            <p id="taskNoResults" class="no-results" hidden>No matching tasks.</p>
+            `;
             tasksSection.appendChild(list);
+
+            // Search bar 
+            const container = document.querySelector('.tasks-list');
+            const input = document.getElementById('searchTasks');
+            const noResultsEl = document.getElementById('taskNoResults');
+            if (container && input) {
+            const getCards = () => Array.from(container.querySelectorAll('.task-card'));
+
+            const filter = (term) => {
+                const q = term.toLowerCase().trim();
+                let visible = 0;
+
+                getCards().forEach(card => {
+                const name = card.querySelector('.task-name')?.textContent?.toLowerCase() || '';
+                const desc = card.querySelector('.task-desc')?.textContent?.toLowerCase() || '';
+                const match = !q || name.includes(q) || desc.includes(q);
+                card.style.display = match ? '' : 'none';
+                if (match) visible++;
+                });
+
+                if (noResultsEl) noResultsEl.hidden = (visible > 0) || !q;
+            };
+
+            input.addEventListener('input', (e) => filter(e.target.value));
+            }
+
+
         }
 
         // Call once to render tasks
@@ -147,3 +181,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         container.innerHTML = `<p style="color: red;">Failed to load project details: ${msg}</p>`;
     }
 });
+
+
