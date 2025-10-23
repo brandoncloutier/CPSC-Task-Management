@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            // no tasks yet
+            // Show "no tasks yet" message
             if (!tasks || tasks.length === 0) {
                 tasksSection.innerHTML = `
                     <h3>Tasks</h3>
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            // render the list
+            // render the list (Used Chatgpt)
             const fmt = (d) => d ? new Date(d).toLocaleDateString() : '—';
             const list = document.createElement('div');
             list.className = 'tasks-list';
