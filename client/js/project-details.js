@@ -71,6 +71,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
         }
 
+        const editBtn = document.querySelector(".edit-project-button");
+        if (editBtn) {
+            editBtn.addEventListener("click", () => {
+                const url = new URL("./edit-project.html", window.location.href);
+                url.searchParams.set("id", projectId);
+                window.location.href = url.toString();
+            });
+        }
+
          // Load and render tasks for this project 
         async function loadTasks() {
             const tasksSection = document.querySelector('.tasks-section');

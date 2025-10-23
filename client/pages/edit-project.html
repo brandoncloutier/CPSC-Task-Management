@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8" />
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0" />
+        <title>Edit Project • Task Manager</title>
+        <link rel = "stylesheet" href = "../css/main.css" />
+        <link rel = "stylesheet" href = "../css/login.css" />
+        <link rel = "stylesheet" href = "../css/create-project.css" />
+    </head>
+
+    <body>
+        <div class = "wrapper">
+            <header>
+                <a href = "./index.html"><h2>Task Manager</h2></a>
+                <nav>
+                    <ul class = "nav__links">
+                        <li><a href = "./projects.html">Projects</a></li>
+                        <li><a href = "#" id = "navAccount">My account</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class = "project-main">
+                <section class = "project-card">
+                    <div class = "project-header">
+                        <button class = "back-button" id = "backBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-big-left-icon lucide-arrow-big-left"><path d="M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z"/></svg>
+                            Back to Projects
+                         </button>
+                    </div>
+                    <h1 class = "title"> Edit Project </h1>
+
+                    <form id = "editProjectForm">
+                        <div class = "input-section">
+                            <label for = "projName">Project name</label>
+                            <input id = "projName" type = "text" placeholder = "e.g., CityFix Civic Portal" required/>
+                        </div>
+
+                        <div class = "input-section">
+                            <label for = "projDesc">Description</label>
+                            <textarea id = "projDesc" rows = "4" placeholder = "Describe your project" ></textarea>
+                        
+                        </div>
+
+                        <div class = "input-section">
+                            <label for = "projDue">Due date</label>
+                            <input id = "projDue" type = "date" required/>
+                        </div>
+
+                        <button type = "submit"> Save Changes </button>
+                    </form>
+                </section>
+            </main>
+        </div>
+
+        <script type = "module" src = "../js/supabaseClient.js"></script>
+        <script type = "module" src = "../js/edit-project.js"></script>
+    </body>
+</html>
