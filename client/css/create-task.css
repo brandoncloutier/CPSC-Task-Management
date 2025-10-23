@@ -36,7 +36,7 @@
   font-size: 1rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+/* 
 .back-button {
   color: #fff;
   border: none;
@@ -51,7 +51,7 @@
 
 .back-button:hover {
   background-color: #5a6268;
-}
+} */
 
 #createTaskForm {
   margin-top: 0.5rem;
