@@ -68,8 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 .update({
                     name,
                     description,
-                    duedate,
-                    updated_at: new Date().toISOString()
+                    duedate
                 })
                 .eq('project_id', projectId);
             if (error) {
