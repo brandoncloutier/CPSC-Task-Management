@@ -138,3 +138,25 @@
     cursor: pointer;
     transition: all 0.3s;
 }
+
+/* Search bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 1rem;
+}
+
+#searchProjects {
+  width: min(92vw, 480px);
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: 16px Georgia, serif;
+}
+
+.no-results {
+  text-align: center;
+  font: 600 16px Georgia, serif;
+  color: #6b7280;
+  margin: 8px 0 16px;
+}

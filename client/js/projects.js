@@ -111,3 +111,31 @@ async function deleteProject(projectId, deleteButton) {
         deleteButton.disabled = false;
     }
 }
+
+// Search bar 
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('projectsContainer');
+  const input = document.getElementById('searchProjects');
+  const noResultsEl = document.getElementById('projectNoResults');
+  if (!container || !input) return;
+
+  const getCards = () => Array.from(container.querySelectorAll('.project-card'));
+
+  const filter = (term) => {
+    const q = term.toLowerCase().trim();
+    let visible = 0;
+
+    getCards().forEach(card => {
+      const name = card.querySelector('h2')?.textContent?.toLowerCase() || '';
+      const desc = card.querySelector('p')?.textContent?.toLowerCase() || '';
+      const match = !q || name.includes(q) || desc.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+
+    if (noResultsEl) noResultsEl.hidden = (visible > 0) || !q;
+  };
+
+  // live filter
+  input.addEventListener('input', (e) => filter(e.target.value));
+});
