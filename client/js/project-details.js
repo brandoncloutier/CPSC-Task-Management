@@ -41,8 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const dueDate = formatDate(project.duedate);
 
         container.innerHTML =
-        // implement back button so user can go back to the projects page...
-        // might add an edit project button and an add task button here too
             `<button class = "back-button" onclick="window.location.href = './projects.html'"> Back to Projects </button>
             <div class = "project-header">
                 <h1> ${project.name} </h1>
@@ -72,6 +70,76 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.location.href = url.toString()
             })
         }
+
+         // Load and render tasks for this project 
+        async function loadTasks() {
+            const tasksSection = document.querySelector('.tasks-section');
+            if (!tasksSection) return;
+
+            // show a loading state inside the tasks section
+            tasksSection.innerHTML = `
+                <h3>Tasks</h3>
+                <p>Loading tasks...</p>
+            `;
+
+            
+            const { data: tasks, error: taskErr } = await supabase
+                .from('task')
+                .select('task_id, project_id, name, description, due_at, status, sense_of_urgency')
+                .eq('project_id', projectId)
+                .order('due_at', { ascending: true });
+
+            if (taskErr) {
+                console.error('Error loading tasks:', taskErr);
+                tasksSection.innerHTML = `
+                    <h3>Tasks</h3>
+                    <p style="color:#b91c1c;">Failed to load tasks: ${taskErr.message}</p>
+                `;
+                return;
+            }
+
+            // no tasks yet
+            if (!tasks || tasks.length === 0) {
+                tasksSection.innerHTML = `
+                    <h3>Tasks</h3>
+                    <p>No tasks yet. Use "Add Task" to create one.</p>
+                `;
+                return;
+            }
+
+            // render the list
+            const fmt = (d) => d ? new Date(d).toLocaleDateString() : '—';
+            const list = document.createElement('div');
+            list.className = 'tasks-list';
+
+            tasks.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.innerHTML = `
+                    <div>
+                        <h4 class="task-name">${t.name}</h4>
+                        <p class="task-desc">${t.description || 'No description provided.'}</p>
+                        <div class="task-meta">
+                            <span><strong>Due:</strong> ${fmt(t.due_at)}</span>
+                            ${t.status ? ` • <span><strong>Status:</strong> ${t.status}</span>` : ''}
+                            ${t.sense_of_urgency ? ` • <span><strong>Urgency:</strong> ${t.sense_of_urgency}</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <!-- future buttons ( Edit / Delete) can go here -->
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+
+            tasksSection.innerHTML = '<h3>Tasks</h3>';
+            tasksSection.appendChild(list);
+        }
+
+        // Call once to render tasks
+        await loadTasks();
+    
+
     } catch (error) {
         // log and show error message if something not working...
         console.error("Error loading project details:", error.message);

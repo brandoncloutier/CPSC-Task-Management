@@ -89,3 +89,50 @@
     margin-bottom: 1rem;
     color: #333;
 }
+
+/* --- Tasks card layout --- */
+.tasks-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0; 
+  padding: 0;
+}
+
+
+.task-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;                  
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.task-card:hover {
+  box-shadow: 0 14px 36px rgba(0,0,0,0.12);
+  transition: box-shadow 0.25s ease;
+}
+
+.task-card .task-name {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;   
+  color: #222;
+}
+
+.task-card .task-desc {
+  margin: 0.25rem 0 0.75rem 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.task-card .task-meta {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.task-card .task-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
