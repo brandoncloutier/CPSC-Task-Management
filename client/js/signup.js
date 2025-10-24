@@ -3,6 +3,7 @@
     "How to Make A Popup...": https://www.youtube.com/watch?v=AF6vGYIyV8M&ab_channel=GreatStack */
 
 import { supabase } from "./supabaseClient.js";
+import { updateNavigationBar } from "./navigation.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const openButtons = document.querySelectorAll('.signup-open-button')
@@ -128,6 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
             await upsertProfile({ id: user.id, email: user.email, firstName});
 
             alert("Account ready!");
+            closeModal(); // should we have this here?
+            await updateNavigationBar(); // function to update nav bar with user's name/info
         } catch (error) {
             console.error(error);
             alert(`Error with signup process: ${error.message}`);

@@ -6,7 +6,7 @@
    https://www.youtube.com/watch?v=WM178YopjfI */
 
    import { supabase } from "./supabaseClient.js";
-
+    import { updateNavigationBar } from "./navigation.js";
     document.addEventListener('DOMContentLoaded', function () {
     const openButton = document.querySelector('.login-open-button');
     const closeButton = document.querySelector('.login-close');
@@ -83,6 +83,7 @@
 
             alert("Successfully Logged In!")
             closeModal();
+            await updateNavigationBar(); // function to update nav bar with user's name/info
         } catch (error) {
             console.error("Error:", error)
             alert('Error with login process: ${error.message}')

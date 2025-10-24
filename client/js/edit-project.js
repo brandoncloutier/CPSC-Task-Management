@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        // fill in the form fields with existing data...
+        // fill in the form fields with existing data... (so users can edit the CURRENT name, description, or due date)
         document.getElementById("projName").value = project.name || "";
         document.getElementById("projDesc").value = project.description || "";
         // we have to format the date to YYYY-MM-DD for input type="date"
