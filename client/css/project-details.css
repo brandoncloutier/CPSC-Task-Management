@@ -223,3 +223,31 @@ li, a {
   justify-content: center;
   align-items: center;
 }
+
+.delete-task-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-task-btn:hover {
+  background-color: #e84f4f;
+}
+
+.search-container {
+  margin: 10px 0 16px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#searchTasks {
+  width: 100%;
+  max-width: 320px;
+  padding: 8px 12px;
+  border: 1px solid #d4d4d8;
+  border-radius: 10px;
+  outline: none;
+}
