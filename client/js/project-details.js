@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .select("project_id, name, description, duedate")
             .eq("project_id", projectId)
             .single(); // we expect a single project (one project card)
-        
+
         if (error) throw error;
 
         if (!project) {
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <h3>Tasks</h3>
                 <p>Tasks functionality coming soon...</p>
             </div>`
-        ;
+            ;
 
         const addBtn = document.querySelector(".add-task-button")
         if (addBtn) {
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-         // Load and render tasks for this project 
+        // Load and render tasks for this project 
         async function loadTasks() {
             const tasksSection = document.querySelector('.tasks-section');
             if (!tasksSection) return;
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p>Loading tasks...</p>
             `;
 
-            
+
             const { data: tasks, error: taskErr } = await supabase
                 .from('task')
                 .select('task_id, project_id, name, description, due_at, status, sense_of_urgency')
@@ -135,12 +135,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </div>
                     </div>
                     <div class="task-actions">
-                        <!-- future buttons ( Edit / Delete) can go here -->
+                        <button
+                            class="delete-task-btn"
+                            data-task-id="${t.task_id}"
+                        >
+                            Delete
+                        </button>
                     </div>
                 `;
                 list.appendChild(card);
             });
-             
+
             // To keep search bar right above task cards
             tasksSection.innerHTML = `
             <h3>Tasks</h3>
@@ -156,32 +161,68 @@ document.addEventListener('DOMContentLoaded', async () => {
             const input = document.getElementById('searchTasks');
             const noResultsEl = document.getElementById('taskNoResults');
             if (container && input) {
-            const getCards = () => Array.from(container.querySelectorAll('.task-card'));
+                const getCards = () => Array.from(container.querySelectorAll('.task-card'));
 
-            const filter = (term) => {
-                const q = term.toLowerCase().trim();
-                let visible = 0;
+                const filter = (term) => {
+                    const q = term.toLowerCase().trim();
+                    let visible = 0;
 
-                getCards().forEach(card => {
-                const name = card.querySelector('.task-name')?.textContent?.toLowerCase() || '';
-                const desc = card.querySelector('.task-desc')?.textContent?.toLowerCase() || '';
-                const match = !q || name.includes(q) || desc.includes(q);
-                card.style.display = match ? '' : 'none';
-                if (match) visible++;
-                });
+                    getCards().forEach(card => {
+                        const name = card.querySelector('.task-name')?.textContent?.toLowerCase() || '';
+                        const desc = card.querySelector('.task-desc')?.textContent?.toLowerCase() || '';
+                        const match = !q || name.includes(q) || desc.includes(q);
+                        card.style.display = match ? '' : 'none';
+                        if (match) visible++;
+                    });
 
-                if (noResultsEl) noResultsEl.hidden = (visible > 0) || !q;
-            };
+                    if (noResultsEl) noResultsEl.hidden = (visible > 0) || !q;
+                };
 
-            input.addEventListener('input', (e) => filter(e.target.value));
+                input.addEventListener('input', (e) => filter(e.target.value));
             }
 
+            list.addEventListener("click", async (event) => {
+                const btn = event.target.closest('.delete-task-btn')
+                if (!btn) return
+
+                const taskId = btn.getAttribute("data-task-id")
+                if (!taskId) return
+
+                const ok = window.confirm("Delete this task?")
+                if (!ok) return
+
+                const card = btn.closest('.task-card');
+
+                try {
+                    const { error: deleteError } = await supabase
+                        .from("task")
+                        .delete()
+                        .eq('task_id', taskId)
+
+                    if (deleteError) throw deleteError
+
+                    if (card) card.remove()
+
+                    const remaining = list.querySelectorAll(".task-card").length
+                    if (remaining === 0) {
+                        tasksSection.innerHTML = `
+                        <h3>Tasks</h3>
+                        <p>No tasks yet. Use "Add Task" to create one.</p>
+                        `
+                    } else if (noResultsEl) {
+                        noResultsEl.hidden = true
+                    }
+                } catch (error) {
+                    console.error("delete faield")
+                    alert(`failed to delete task: ${error.message}`)
+                }
+            })
 
         }
 
         // Call once to render tasks
         await loadTasks();
-    
+
 
     } catch (error) {
         // log and show error message if something not working...
