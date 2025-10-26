@@ -136,6 +136,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                     <div class="task-actions">
                         <button
+                            class="edit-task-btn"
+                            data-task-id=${t.task_id}
+                        >
+                            Edit
+                        </button>
+                        <button
                             class="delete-task-btn"
                             data-task-id="${t.task_id}"
                         >
@@ -180,6 +186,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 input.addEventListener('input', (e) => filter(e.target.value));
             }
+
+            list.addEventListener("click", (event) => {
+                const editBtn = event.target.closest(".edit-task-btn")
+                if (!editBtn) return
+
+                const taskId = editBtn.getAttribute("data-task-id")
+                if (!taskId) return
+
+                const url = new URL("./edit-task.html", window.location.href)
+                url.searchParams.set('id', taskId)
+                window.location.href = url.toString()
+            })
 
             list.addEventListener("click", async (event) => {
                 const btn = event.target.closest('.delete-task-btn')
