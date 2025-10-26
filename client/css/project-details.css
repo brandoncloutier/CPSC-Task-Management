@@ -1,6 +1,7 @@
 .project-details-main {
     padding: 2rem;
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -157,3 +158,68 @@
   margin: 8px 0 16px;
 }
 
+header {
+  position:fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  background: rgba(255,255,255,.25);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  border-bottom: 1.5px solid rgba(255,255,255,.35);
+}
+
+h2 {
+  font: 700 26.5px Georgia, serif;
+}
+
+.nav__links {
+  list-style: none;
+  display:flex;
+  gap: 32px;
+  margin:0;
+  padding: 0;
+}
+
+.nav__links li {
+  display: inline-block;
+}
+
+.nav__links li a {
+  font: 700 26.5px Georgia, serif;
+  color: #000000;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover{
+  background: rgba(240, 234, 234, 0.39);
+  color: #e6bfbf;
+}
+
+button:hover {
+    background: rgb(236, 232, 232);
+}
+
+li, a {
+  font-family: "Georgia";
+  font-weight: 500;
+  font-size: 16px;
+  color: #270730;
+  text-decoration: none;
+}
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
