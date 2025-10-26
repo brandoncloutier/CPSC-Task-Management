@@ -1,11 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  Editing task
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Edit Task</title>
+        <link rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="../css/login.css" />
+        <link rel="stylesheet" href="../css/create-task.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <a href="./index.html"><h2>Task Manager</h2></a>
+                <nav>
+                    <ul class="nav__links">
+                        <li><a href="./projects.html">Projects</a></li>
+                        <li><a href="#" id="navAccount">My account</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class="project-main">
+                <section class="project-card">
+                    <div class="project-header">
+                        <button class="back-button" id="backBtn">Back</button>
+                    </div>
+
+                    <h1 class="title">Edit Task</h1>
+                    <p class="subtitle">Update the tasks details and save your changes</p>
+
+                    <form id="editTaskForm">
+                        <div class="input-section">
+                            <label for="name">Task name</label>
+                            <input id="name" type="text" placeholder="Task Name" required />
+                        </div>
+
+                        <div class="input-section">
+                            <label for="description">Description</label>
+                            <textarea id="description" rows="4" placeholder="Description"></textarea>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="input-section">
+                                <label for="sense_of_urgency">Urgency</label>
+                                <select id="sense_of_urgency">
+                                    <option value="low">low</option>
+                                    <option value="medium">medium</option>
+                                    <option value="high">high</option>
+                                    <option value="critical">critical</option>
+                                </select>
+                            </div>
+                            <div class="input-section">
+                                <label for="status">Status</label>
+                                <select id="status">
+                                    <option value="todo">todo</option>
+                                    <option value="in_progress">in_progress</option>
+                                    <option value="blocked">blocked</option>
+                                    <option value="done">done</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-section">
+                          <label for="due_at">Due date</label>
+                          <input id="due_at" type="date"/>
+                        </div>
+
+                        <button type="submit" id="updateBtn">Update Task</button>
+                    </form>
+                </section>
+            </main>
+        </div>
+
+        <script type="module" src="../js/supabaseClient.js"></script>
+        <script type="module" src="../js/navigation.js"></script>
+        <script type="module" src="../js/edit-task.js"></script>
+    </body>
 </html>

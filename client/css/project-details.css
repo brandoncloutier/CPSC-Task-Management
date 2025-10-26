@@ -237,6 +237,19 @@ li, a {
   background-color: #e84f4f;
 }
 
+.edit-task-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-task-btn:hover {
+  background: #0069d9;
+}
+
 .search-container {
   margin: 10px 0 16px 0;
   display: flex;
