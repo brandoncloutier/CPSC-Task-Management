@@ -36,6 +36,33 @@
   font-size: 1rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+  font: 500 14px Georgia, serif;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.back-button svg {
+  width: 16px;
+  height: 16px;
+}
 /* 
 .back-button {
   color: #fff;
