@@ -97,8 +97,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
 
-      // If successful, a successful alert is hown
+      // If successful, a successful alert is shown
       alert("Password updated successfully. You can now log in with your new password.");
+
+      // Sign out the temporary recovery session
+      await supabase.auth.signOut();
+
+      // Redirect to homepage (user will be logged out)
+      window.location.href = "/client/pages/index.html";
 
 
     } catch {
