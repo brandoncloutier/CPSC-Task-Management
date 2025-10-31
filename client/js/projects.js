@@ -2,6 +2,12 @@ import {supabase} from './supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById("projectsContainer");
+    const { data: { user }, error: authErr } = await supabase.auth.getUser();
+    if (authErr || !user) {
+        alert('Please log in to get started!');
+        window.location.href = './index.html';
+        return;
+    }
 
     try {
         // show loading state...

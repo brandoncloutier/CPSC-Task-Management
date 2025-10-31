@@ -86,7 +86,26 @@ function setupUserDropdown() {
             logoutButton.addEventListener('click', async (e) => {
                 e.preventDefault(); 
                 dropdownContent.classList.remove('show');
-                alert('Log out functionality coming soon!');
+                
+                try {
+                    const {error} = await supabase.auth.signOut();
+                    if (error) {
+                        throw error;
+                    }
+
+                    alert('Successfully logged out!');
+                    await updateNavigationBar(); // refresh nav bar to show login and signup modals again...
+                    
+                    window.location.href = './index.html'; // redirect the user to the homepage after logging out.
+                    // the user CANNOT use any of the website's features until they log back in..
+                    // forces the user to create an account in order to actually use the website's features.
+                
+                } catch (error) {
+                    console.error('Error logging out:', error.message);
+                    alert('Failed to log out. Please try again.');
+                }
+                
+
             });
         }
     }
