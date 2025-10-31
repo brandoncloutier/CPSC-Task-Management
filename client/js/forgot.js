@@ -47,17 +47,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Submit (placeholder)
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const email = document.getElementById('forgotEmail')?.value?.trim();
-    if (!email) {
-      alert('Please enter your email.');
+  // submit handler
+form.addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const email = document.getElementById('forgotEmail')?.value?.trim();
+  if (!email) {
+    alert('Please enter your email.');
+    return;
+  }
+
+  try {
+    // Ask the server if the email exists (using email checker query from supabase) {used chatgpt for email checking}
+    const { data: exists, error: rpcErr } = await supabase.rpc('email_exists', { p_email: email });
+    if (rpcErr) {
+      console.warn('email_exists RPC error:', rpcErr.message);
+      alert('Something went wrong. Please try again.');
       return;
     }
-    alert('If this email exists, a reset link will be sent.');
-    closeModal();
-  });
+
+    if (!exists) {
+      // Alert message if email does not exists
+      alert('The email does not exists');
+      return;
+    }
+    
+  } catch (err) {
+    console.error(err);
+    alert('Something went wrong. Please try again.');
+  }
+});
 
   // "Log In" link inside Forgot 
   const backToLogin = document.getElementById('forgotShowLogin');
