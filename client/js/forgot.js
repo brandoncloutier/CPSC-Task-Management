@@ -1,4 +1,7 @@
 // forgot.js file
+
+import { supabase } from "./supabaseClient.js";
+
 document.addEventListener('DOMContentLoaded', function () {
   const openButtons = document.querySelectorAll('.forgot-open-button, #showForgot');
   const closeButton = document.querySelector('.forgot-close');
@@ -47,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // submit handler
+  // submit handler 
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
   const email = document.getElementById('forgotEmail')?.value?.trim();
@@ -57,7 +60,7 @@ form.addEventListener('submit', async function (e) {
   }
 
   try {
-    // Ask the server if the email exists (using email checker query from supabase) {used chatgpt for email checking}
+    // Ask the server if the email exists (using email checker query from supabase) {used chatgpt for email checker query}
     const { data: exists, error: rpcErr } = await supabase.rpc('email_exists', { p_email: email });
     if (rpcErr) {
       console.warn('email_exists RPC error:', rpcErr.message);
@@ -66,16 +69,29 @@ form.addEventListener('submit', async function (e) {
     }
 
     if (!exists) {
-      // Alert message if email does not exists
+      // Alert shown if email does not exists
       alert('The email does not exists');
       return;
     }
-    
+
+    // Send reset email to the redirect URL
+    const redirectTo = 'http://127.0.0.1:5500/client/pages/reset-password.html';
+    const { error: resetErr } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+
+    if (resetErr) {
+      console.warn('resetPasswordForEmail error:', resetErr.message);
+      alert('Something went wrong. Please try again.');
+      return;
+    }
+    // Alert shown if email sent successfully
+    alert('Reset password link sent successfully');
+    closeModal();
   } catch (err) {
     console.error(err);
     alert('Something went wrong. Please try again.');
   }
 });
+
 
   // "Log In" link inside Forgot 
   const backToLogin = document.getElementById('forgotShowLogin');
