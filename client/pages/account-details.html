@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,12 +22,6 @@
 
         <main class="account-main">
             <section class = "account-card">
-                <div class = "account-header">
-                    <button class="back-button" onclick="window.location.href='./projects.html'">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-big-left-icon lucide-arrow-big-left"><path d="M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z"/></svg>
-                        Back to Projects
-                    </button>
-                </div>
 
                 <h1 class="title">Account Details</h1>
 
@@ -45,25 +39,28 @@
                         <p>Completed Tasks</p>
                     </div>
                 </div>
-                </div>
 
                 <form id="accountForm">
                     <div class="input-section">
-                        <label for ="firstName">First Name</label>
-                        <input id = "firstName" type = "text" placeholder = "Your first name"/>
-                    </div>
-
-                    <div class = "input-section">
-                        <label for ="lastName">Last Name</label>
-                        <input id = "lastName" type = "text" placeholder = "Your last name"/>
+                        <label for ="name">First Name</label>
+                        <input id = "name" type = "text" placeholder = "Your first name"/>
                     </div>
 
                     <div class = "input-section">
                         <label for = "email"> Email </label>
                         <input id = "email" type = "email" placeholder="your.email@gmail.com" />
                     </div>
+
+                    <div class = "form-actions">
+                        <button type = "submit" id = "saveBtn"> Save Your Changes</button>
+                        <button type = "button" id = "changePasswordBtn">Change Password</button>
+                    </div>
                 </form>
             </section>
         </main>
     </div>
-</body> -->
+
+    <script type = "module" src = "../js/supabaseClient.js"></script>
+    <script type = "module" src = "../js/navigation.js"></script>
+    <script type = "module" src = "../js/account-details.js"></script>
+</body>

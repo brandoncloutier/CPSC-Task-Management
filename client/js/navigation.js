@@ -77,7 +77,7 @@ function setupUserDropdown() {
             accountDetails.addEventListener('click', (e) => {
                 e.preventDefault();
                 dropdownContent.classList.remove('show');
-                alert('Account details functionality coming soon!');
+                window.location.href = './account-details.html';
             });
         }
         // logout button

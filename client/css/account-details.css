@@ -1,0 +1,231 @@
+/* Used Gemini and Deepseek for help on css part of account-details page. */
+
+/* centering the card horizontally and adding gradient background; also added top padding... */
+.account-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 70px);
+    padding: 2rem 1rem;
+    padding-top: calc(70px + 2rem); /* padding for top of card */
+    background: linear-gradient(135deg, #fde68a, #fca5a5, #c4b5fd) fixed;
+}
+
+/* rounding corners of card and creating box shadow. */
+.account-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #e5e7eb;
+}
+
+/* title will be bold serif, centered, and has purple border underneath (using border bottom) */
+.account-card .title {
+    text-align: center;
+    color: #270730;
+    font: 700 26px Georgia, serif;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #5b21b6;
+    padding-bottom: 0.5rem;
+}
+
+/* creating grid layout for total projects/tasks cards... adjusts based on width of user's screen. */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+/* give card a gradient background */
+.stat-card {
+    background: linear-gradient(135deg, #5b21b6, #7c3aed);
+    color: white;
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(91, 33, 182, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255,0.2);
+}
+
+/* also added hover animation when user hovers over card... */
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(91, 33, 182, 0.4);
+}
+
+/* card text will be smaller font size */
+.stat-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    font-family: Georgia, serif;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-family: Georgia, serif;
+}
+
+/* stacking the input fields vertically using flex-direction COLUMN */
+#accountForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* input fields are the same style as before */
+.input-section label {
+    font-weight: 600;
+    color: #270730;
+    font-size: 0.95rem;
+    font-family: Georgia,serif;
+}
+
+.input-section input {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    font-family: Georgia, serif;
+}
+
+/* the input field will be highlighted in purple when user clicks on it. */
+.input-section input:focus {
+    outline: none;
+    border-color: #5b21b6;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.1);
+}
+
+/* when user is not on the input field, turn it back to it's original color (Light Gray) */
+.input-section input:disabled {
+    background-color: #f1f3f4;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* buttons for submitting and changing password are layed out side by side */
+.form-actions {
+    display: flex; 
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.form-actions button {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Georgia, serif;
+}
+
+#saveBtn {
+    background: linear-gradient(135deg, #5b21b6, #7c3aed);
+    color: white;
+}
+
+/* color change when user hovers over button */
+#saveBtn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(91, 33, 182, 0.4);
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+}
+
+#saveBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#changePasswordBtn {
+    background: #f8f9fa;
+    color: #270730;
+    border: 2px solid #e1e5e9;
+}
+
+/* same with change password button */
+#changePasswordBtn:hover {
+    background: #e9ecef;
+    border-color: #5b21b6;
+    color: #5b21b6;
+}
+
+#saveBtn.saving {
+    position: relative;
+    color: transparent;
+}
+
+#saveBtn.saving::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* loads animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.input-section .success input {
+    border-color: #10b981;
+    background: #f0fdf4;
+}
+
+.input-section.error input {
+    border-color: #ef4444;
+    background: #fef2f2;
+}
+
+/* .alert {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    font-family: Georgia, serif;
+}
+
+/* green means that user's info has been properly updated */
+/*
+.alert.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+} */
+
+/* red shows the user that an error has occurred */
+/*
+.alert.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+} */
