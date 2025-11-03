@@ -79,6 +79,8 @@ async function handleProfileUpdate(event) {
         const newEmail = document.getElementById('email').value.trim() || null;
 
         const updates = {
+            // both username and name are being updated right now...
+            // maybe will change later and might remove username or name since they are redundant...
             name: newName,
             username: newName,
             email: newEmail,
