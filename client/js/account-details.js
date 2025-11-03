@@ -56,6 +56,8 @@ async function loadUserStatistics() {
             throw taskError;
         }
 
+        // add in green checkmark button for projects so that user can mark entire project as completed.
+
         document.getElementById('totalProjects').textContent = projectCount || 0;
         document.getElementById('totalTasks').textContent = taskCount || 0;
     } catch (error) {

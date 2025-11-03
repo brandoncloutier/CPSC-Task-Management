@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <button class = "delete-project-button" data-id = "${project.project_id}">
                         <i data-lucide = "trash-2"></i>
                     </button>
+                    <button class = "complete-project-button" data-id = "${project.project_id}">
+                        <i data-lucide = "check"></i>
+                    </button>
                 </div>
                 `;  
                 container.appendChild(card);

@@ -18,7 +18,7 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     padding: 2.5rem;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     border: 1px solid #e5e7eb;
 }
@@ -36,7 +36,7 @@
 /* creating grid layout for total projects/tasks cards... adjusts based on width of user's screen. */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1rem;
     margin-bottom: 2.5rem;
 }
