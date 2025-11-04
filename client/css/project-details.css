@@ -82,6 +82,34 @@
 .add-task-button:hover {
     background: #218838;
 }
+
+.complete-task-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+
+.complete-task-btn:hover {
+  background: #059669;
+}
+
+.complete-task-btn:disabled {
+  background: #a7f3d0;
+}
+
+.complete-task-btn .spinner {
+  animation: spin 1s linear infinite;
+}
+
 .tasks-section {
     margin-top: 2rem;
 }

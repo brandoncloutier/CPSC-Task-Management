@@ -147,6 +147,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                         >
                             Delete
                         </button>
+                        <button
+                            class = "complete-task-btn"
+                            data-task-id="${t.task_id}"
+                        >
+                            <i data-lucide="check"></i>
                     </div>
                 `;
                 list.appendChild(card);
@@ -161,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p id="taskNoResults" class="no-results" hidden>No matching tasks.</p>
             `;
             tasksSection.appendChild(list);
-
+            lucide.createIcons();
             // Search bar 
             const container = document.querySelector('.tasks-list');
             const input = document.getElementById('searchTasks');
@@ -234,6 +239,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                     console.error("delete faield")
                     alert(`failed to delete task: ${error.message}`)
                 }
+            })
+
+            list.addEventListener("click", async (event) => {
+                const completeBtn = event.target.closest('.complete-task-btn');
+                if (completeBtn) {
+                    const taskId = completeBtn.getAttribute("data-task-id");
+                    if (!taskId) {
+                        return;
+                    }
+                    await completeTask(taskId, completeBtn);
+                    return;
+                }
+                
             })
 
         }
