@@ -292,3 +292,17 @@ li, a {
   border-radius: 10px;
   outline: none;
 }
+
+.recurring-section {
+  margin-top: 32px;
+}
+
+.recurring-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.recurring-body {
+  display: none;
+}

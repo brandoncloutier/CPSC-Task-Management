@@ -256,8 +256,87 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         }
 
+        async function loadRecurringTasks() {
+            const tasksSection = document.querySelector('.tasks-section')
+            if (!tasksSection) return
+
+            const recurringSection = document.createElement('div')
+            recurringSection.className = 'recurring-section'
+            tasksSection.insertAdjacentElement('afterend', recurringSection)
+
+            recurringSection.innerHTML = `
+                <div class="recurring-header">
+                    <h3>Recurring Tasks</h3>
+                    <span class="recurring-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+                    </span>
+                </div>
+                <div class="recurring-body">
+                    <p>Loading recurring tasks...</p>
+                </div>
+            `
+
+
+            const body = recurringSection.querySelector('.recurring-body')
+            const toggle = recurringSection.querySelector('.recurring-toggle')
+            const header = recurringSection.querySelector('.recurring-header')
+
+            header.addEventListener('click', () => {
+                const isOpen = body.style.display === "block"
+                if (isOpen) {
+                    body.style.display = "none"
+                    toggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>'
+                } else {
+                    body.style.display = "block"
+                    toggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>'
+                }
+            })
+
+            const { data: recurring_tasks, error: fetchError } = await supabase
+                .from('recurring_task')
+                .select('recurring_task_id, name, description, interval_value, interval_unit, next_run_at, is_active')
+                .eq('project_id', projectId)
+            
+                if (fetchError) {
+                    console.error('Error loading recurring tasks: ', fetchError)
+                    body.innerHTML = '<p>Error Fetching recurring tasks</p>'
+                    return
+                }
+
+                if (!recurring_tasks || recurring_tasks.length === 0) {
+                    body.innerHTML = '<p>No recurring tasks</p>'
+                    return
+                }
+
+                const list = document.createElement('div')
+                list.className = 'recurring-list'
+
+                recurring_tasks.forEach(recurring_task => {
+                    const item = document.createElement('div')
+                    item.className = 'recurring-card'
+                    item.style.border = '1px solid black'
+                    item.style.borderRadius = '10px'
+                    item.style.padding = '1px 2px'
+                    item.style.marginBottom = '5px'
+
+                    const next = recurring_task.next_run_at ? new Date(recurring_task.next_run_at).toLocaleString() : '-'
+                    item.innerHTML =  `
+                        <h4>${recurring_task.name}</h4>
+                        <p>${recurring_task.description}</p>
+                        <p>
+                            Every ${recurring_task.interval_value} ${recurring_task.interval_unit}
+                            Next run: ${next}
+                        </p>
+                    `
+                    list.appendChild(item)
+                })
+                body.innerHTML = ''
+                body.appendChild(list)
+        }
+
         // Call once to render tasks
         await loadTasks();
+        await loadRecurringTasks()
 
 
     } catch (error) {
