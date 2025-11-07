@@ -84,3 +84,11 @@ async function loadCompletedTasks() {
         tasksContainer.appendChild(taskCard);
     });
 }
+
+// Search bar
+document.getElementById('archiveSearch')?.addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.task-card, .project-card').forEach(c => {
+    c.style.display = c.innerText.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
