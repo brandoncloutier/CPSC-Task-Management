@@ -1,158 +1,330 @@
-/* Page scaffold */
-
-
-.nav__links{
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    gap: 1rem !important;
-    align-items: center !important;
+/* MAIN PAGE CONTAINER */
+.archive-page .archive-main {
+  min-height: 100vh !important;
+  width: 100% !important;
+  padding-top: 40px !important;
 }
 
-.nav__links li {
-  display: inline-block !important;
+/* HEADER SECTION */
+.archive-header {
+  max-width: 960px;
+  width: min(92vw, 960px);
+  margin: 0 auto 1.25rem;
+  text-align: center;
+}
+.archive-title { 
+  font: 700 32px Georgia, serif; 
+  margin-bottom: 6px; 
+}
+.archive-subtitle { 
+  color: #374151; 
+  font: 500 16px Georgia, serif; 
 }
 
-.nav__links li a {
-  font: 700 26.5px Georgia, serif !important;
-  color: #000000 !important;
-  text-decoration: none !important;
-  padding: 8px 10px !important;
-  border-radius: 10px !important;
-  transition: all 0.3s ease 0s !important;
+/* SEARCH BAR SECTION */
+.archive-controls {
+  margin: 14px auto 0;
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 10px;
+  max-width: 720px; 
+  width: min(92vw, 720px);
+}
+.archive-control { display: flex; }
+.archive-input {
+  width: 100%; 
+  padding: 12px 16px;
+  border: 1px solid #d1d5db; 
+  border-radius: 10px;
+  font: 16px Georgia, serif; 
+  background: #fff; 
+  outline: none;
 }
 
-.nav__links li a:hover{
-  background: rgba(240, 234, 234, 0.39) !important;
-  color: #e6bfbf !important;
+/* SECTION LAYOUT */
+.archive-section {
+  max-width: 960px; 
+  width: min(92vw, 960px);
+  margin: 22px auto 32px;
 }
-.archive-page .archive-main{
-  min-height:100vh !important;
-  width:100% !important;
-  padding-top:40px !important;
+.archive-section-head {
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin: 10px 0 14px;
+}
+.archive-h2 {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px;
+  font: 700 26px Georgia, serif;
+}
+.icon { display: inline-block; }
+
+/* GRID (CARD CONTAINER) */
+.archive-grid {
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 16px;
 }
 
-/* Header text */
-.archive-header{
-  max-width:960px;
-  width:min(92vw,960px);
-  margin:0 auto 1.25rem;
-  text-align:center;
+/* CHIPS AND BUTTONS */
+.chip {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 6px;
+  padding: 4px 10px; 
+  background: #f3f4f6; 
+  border: 1px solid #e5e7eb;
+  border-radius: 999px; 
+  font: 500 13px Georgia, serif; 
+  color: #374151;
 }
-.archive-title{ font:700 32px Georgia, serif; margin-bottom:6px; }
-.archive-subtitle{ color:#374151; font:500 16px Georgia, serif; }
+.chip-link { 
+  text-decoration: none; 
+  color: #1f2937; 
+}
+.btn-text {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 6px;
+  padding: 4px 6px; 
+  border: none; 
+  background: transparent;
+  color: #111827; 
+  cursor: default; 
+  font: 600 14px Georgia, serif; 
+  text-decoration: none;
+}
+.btn-text[disabled] { opacity: .6; }
 
-/* Search (static only) */
-.archive-controls{
-  margin:14px auto 0;
-  display:grid; grid-template-columns:1fr; gap:10px;
-  max-width:720px; width:min(92vw,720px);
+/*  CARD BASE STYLING */
+.card {
+  background: #fff; 
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 16px; 
+  padding: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
 }
-.archive-control{ display:flex; }
-.archive-input{
-  width:100%; padding:12px 16px;
-  border:1px solid #d1d5db; border-radius:10px;
-  font:16px Georgia, serif; background:#fff; outline:none;
-}
-
-/* Sections */
-.archive-section{
-  max-width:960px; width:min(92vw,960px);
-  margin:22px auto 32px;
-}
-.archive-section-head{
-  display:flex; align-items:center; gap:10px; margin:10px 0 14px;
-}
-.archive-h2{
-  display:inline-flex; align-items:center; gap:8px;
-  font:700 26px Georgia, serif;
-}
-.icon{ display:inline-block; }
-
-/* Grid (one card per row always) */
-.archive-grid{
-  display:grid; grid-template-columns:1fr; gap:16px;
-}
-
-/* Chips and buttons */
-.chip{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:4px 10px; background:#f3f4f6; border:1px solid #e5e7eb;
-  border-radius:999px; font:500 13px Georgia, serif; color:#374151;
-}
-.chip-link{ text-decoration:none; color:#1f2937; }
-.btn-text{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:4px 6px; border:none; background:transparent;
-  color:#111827; cursor:default; font:600 14px Georgia, serif; text-decoration:none;
-}
-.btn-text[disabled]{ opacity:.6; }
-
-/* Card base (shared look) */
-.card{
-  background:#fff; border:1px solid rgba(0,0,0,.06);
-  border-radius:16px; padding:1.25rem;
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-.card:hover{ box-shadow:0 14px 36px rgba(0,0,0,.12); transition:.25s; }
-
-/* Task card */
-.task-card{
-  background:#fff; border:1px solid rgba(0,0,0,.06);
-  border-radius:16px; padding:1.25rem; box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-.task-card:hover{ box-shadow:0 14px 36px rgba(0,0,0,.12); transition:.25s; }
-.task-card .task-name{
-  margin:0 0 .25rem 0; font-size:1.25rem; color:#222; font-weight:700;
-}
-.task-card .task-desc{
-  margin:.25rem 0 .75rem 0; color:#555; line-height:1.5;
-}
-.task-card .task-meta{
-  display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; font-size:.95rem; color:#444;
+.card:hover { 
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .12); 
+  transition: .25s; 
 }
 
-/* Project card */
-.project-card{
-  background:#fff; 
-  border:1px solid rgba(0,0,0,.06);
-  border-radius:16px; 
-  padding:1.25rem; 
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
+/* TASK CARD STYLING */
+.task-card {
+  background: #fff; 
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 16px; 
+  padding: 1.25rem; 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
 }
-.project-card:hover{ 
-    box-shadow:0 14px 36px rgba(0,0,0,.12); 
-    transition:.25s;
+.task-card:hover { 
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .12); 
+  transition: .25s; 
 }
-.project-card .project-card-head{
-  display:flex; 
-  align-items:baseline; 
-  justify-content:space-between; 
-  gap:8px; 
-  margin-bottom:6px;
+.task-card .task-name {
+  margin: 0 0 .25rem 0; 
+  font-size: 1.25rem; 
+  color: #222; 
+  font-weight: 700;
 }
-.project-card .project-name{ 
-    font-weight:700; 
-    font-size:1.1rem; 
-    color:#222; 
-    margin:0;
+.task-card .task-desc {
+  margin: .25rem 0 .75rem 0; 
+  color: #555; 
+  line-height: 1.5;
 }
-.project-card .project-desc{ 
-    margin:.25rem 0 .75rem 0; 
-    color:#555; 
-    line-height:1.5; 
-}
-.project-card .project-meta-row{ 
-    display:flex; 
-    flex-wrap:wrap; 
-    gap:6px; 
-    margin-top:8px; 
-}
-.project-card .project-actions-row{ 
-    display:flex; 
-    gap:12px; 
-    align-items:center; 
-    margin-top:10px; 
+.task-card .task-meta {
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 6px; 
+  margin-top: 8px; 
+  font-size: .95rem; 
+  color: #444;
 }
 
+/* PROJECT CARD STYLING */
+.project-card {
+  background: #fff; 
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 16px; 
+  padding: 1.25rem; 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+.project-card:hover { 
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .12); 
+  transition: .25s; 
+}
+
+/* Project card content structure */
+.project-card .project-card-head {
+  display: flex; 
+  align-items: baseline; 
+  justify-content: space-between; 
+  gap: 8px; 
+  margin-bottom: 6px;
+}
+.project-card .project-name { 
+  font-weight: 700; 
+  font-size: 1.1rem; 
+  color: #222; 
+  margin: 0;
+}
+.project-card .project-desc { 
+  margin: .25rem 0 .75rem 0; 
+  color: #555; 
+  line-height: 1.5; 
+}
+.project-card .project-meta-row { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 6px; 
+  margin-top: 8px; 
+}
+.project-card .project-actions-row { 
+  display: flex; 
+  gap: 12px; 
+  align-items: center; 
+  margin-top: 10px; 
+}
+
+/* LOGIN.CSS / MAIN.CSS OVERRIDES FOR ARCHIVE PAGE */
+
+/* Fix layout conflicts */
+.archive-main {
+  display: block !important;
+  align-items: normal !important;
+  justify-content: normal !important;
+  min-height: auto !important;
+  margin-top: 88px !important; 
+}
+
+/* Remove unwanted overlay & glow from login.css */
+body::before { content: none !important; }
+body {
+  background: transparent !important;
+  text-shadow: none !important;
+}
+
+/* Keep fixed navbar above all content */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000 !important;
+}
+
+/* Ensure content stacks below header */
+.archive-header, .archive-section {
+  position: relative; 
+  z-index: 0;
+}
+
+/* PROJECT CARD FIXES FOR ARCHIVES PAGE */
+
+/* Force title rendering and proper stacking */
+.project-card .project-card-head {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  position: relative !important;
+  z-index: 0 !important;
+}
+.project-card .project-name {
+  margin: 0 !important;
+  color: #111 !important;
+  font: 700 20px/1.25 Georgia, serif !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  mix-blend-mode: normal !important;
+  position: relative !important;
+  z-index: 1 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+/* Fine-tune title alignment */
+.project-card .project-card-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+.project-card .project-name {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #111 !important;
+  font: 700 20px/1.25 Georgia, serif !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  text-align: left !important;
+  line-height: 1.2 !important;
+}
+
+/* Reset any heading styles that may bleed through */
+.project-card h1,
+.project-card h2,
+.project-card h3,
+.project-card h4,
+.project-card h5,
+.project-card h6 {
+  all: unset; 
+  display: block;
+}
+
+/* Define explicit heading behavior for titles */
+.project-card .project-card-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin: 0 0 6px 0 !important;
+  padding: 0 !important;
+}
+.project-card .project-name {
+  font: 700 20px/1.25 Georgia, serif !important;
+  color: #111 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: currentColor !important;
+  mix-blend-mode: normal !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Maintain consistent spacing between elements */
+.project-card .project-desc { 
+  margin: 6px 0 10px !important; 
+}
+.project-card .project-meta-row { 
+  margin-top: 6px !important; 
+}
+
+/* PROJECT CARD SPACING ADJUSTMENTS (gap reduction) */
+.project-card .project-card-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: normal !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+.project-card .project-name {
+  margin: 0 !important;
+  padding: 0 !important;
+  font: 700 20px/1.25 Georgia, serif !important;
+  color: #111 !important;
+}
+.project-card .project-desc {
+  margin: 6px 0 10px !important;
+}
+.project-card .project-meta-row {
+  margin-top: 6px !important;
+}
