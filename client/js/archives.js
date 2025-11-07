@@ -50,7 +50,7 @@ async function loadCompletedProjects() {
 async function loadCompletedTasks() {
     // first we find the container where the completed tasks are gonna be displayed
     // targets the first archive section which should be tasks section.
-    const tasksContainer = document.querySelector('.archive-section:first-child .archive-grid');
+    let tasksContainer = document.querySelector('.archive-grid');
 
     // get info from completed tasks table
     const { data: tasks, error } = await supabase
@@ -72,7 +72,12 @@ async function loadCompletedTasks() {
             <h3 class = "task-name">${task.name}</h3>
             <p class = "task-desc">${task.description || 'No description.'}</p>
             <div class = "task-meta">
+                ${task.status ? `<span class = "chip urgency-${task.status}"> Archived Status: ${task.status}</span>` : ''}
+                ${task.sense_of_urgency ? `<span class = "chip urgency-${task.sense_of_urgency}"> Archived Urgency: ${task.sense_of_urgency}</span>` : ''}
                 <span class="chip">Completed on ${new Date(task.completed_at).toLocaleDateString()}</span>
+            </div>
+            <div class = "task-actions-row">
+                <button class = "btn-text restore-btn" data-id="${task.completed_task_id}"> Restore </button>
             </div>
         `;
         // append completed task card
