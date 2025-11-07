@@ -13,15 +13,16 @@ export async function updateNavigationBar() {
         // if user is logged in, get their profile info/data...
         const { data: profile} = await supabase
             .from('user')
-            .select('name, username')
+            .select('name')
             .eq('supabase_uid', user.id)
             .single();
 
-        const displayName = profile?.name || profile?.username || user.email?.split('@')[0] || 'Account';
+        const displayName = profile?.name || user.email?.split('@')[0] || 'Account';
     
         // replace nav with name of user
         navContainer.innerHTML = `
             <li><a href="./projects.html">Projects</a></li>
+            <li><a href="./archives.html">Archives</a></li>
             <li class = "user-dropdown">
                 <a href = "#" class = "nav-link">${displayName} &#x25BC;</a>
                 <div class = "user-dropdown-content">
@@ -47,6 +48,7 @@ export async function updateNavigationBar() {
         } else {
             navContainer.innerHTML = `
                 <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./archives.html">Archives</a></li>
                 <li><a href = "#" class = "login-open-button"> Login </a></li>
             `;
         }

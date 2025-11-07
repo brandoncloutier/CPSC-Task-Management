@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const form = $('#createProjectForm');
   if (!form) return;
 
+  // get the current user.
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  if (authError || !user) {
+    alert('Please log in to create a project.');
+    window.location.href = './index.html';
+    return;
+  }
   // Match the numeric user_id from your "user" table to the supabase_uid (used ChatGPT)
   let user_id = null;
   const { data: row, error: lookupErr } = await supabase

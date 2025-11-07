@@ -71,6 +71,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const projectId = deleteButton.dataset.id;
                 deleteProject(projectId, deleteButton);
             }
+
+            const completeButton = e.target.closest('.complete-project-button');
+            if (completeButton) {
+                const projectId = completeButton.dataset.id;
+                completeProject(projectId, completeButton);
+            }
         })
     } catch (error) {
         console.error("Error loading projects:", error.message);
@@ -120,6 +126,152 @@ async function deleteProject(projectId, deleteButton) {
         deleteButton.disabled = false;
     }
 }
+
+// complete the project if the user clicks the green checkmark.
+async function completeProject(projectId, completeProjectButton) {
+    const complete = confirm("Are you sure you want to mark this project as completed?");
+    if (!complete) {
+        return;
+    }
+
+    try {
+        const originalIcon = completeProjectButton.innerHTML;
+        completeProjectButton.innerHTML = '<i data-lucide="loader-2" class = "spinner"></i>';
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        completeProjectButton.disabled = true // user has clicked the button now.
+
+        const { data: project, error: fetchError } = await supabase 
+            .from('project')
+            .select("*")
+            .eq("project_id", projectId)
+            .single();
+
+        if (fetchError) {
+            throw fetchError;
+        }
+
+        // put the project into the completed projects table
+        // basically transferring everything from OG projects table into our completed projects table
+        const { error: archiveError } = await supabase
+            .from("completed_projects")
+            .insert({
+                project_id: project.project_id,
+                supabase_uid: project.supabase_uid,
+                name: project.name,
+                description: project.description,
+                duedate: project.duedate
+            });
+        if (archiveError) {
+            throw archiveError;
+        }
+        // delete the project from OG projects table
+        const { error: deleteError } = await supabase
+            .from("project")
+            .delete()
+            .eq("project_id", projectId);
+
+        if (deleteError) {
+            throw deleteError;
+        }
+
+        // now we remove the project from the actual page.
+        const projectCard = completeProjectButton.closest('.project-card');
+        projectCard.remove();
+        // if there are no projects left, then reload the page so that it can inform the user that there are no projects now.
+        const remainingProjects = document.querySelectorAll('.project-card');
+        if (remainingProjects.length === 0) { 
+            location.reload(); // this will reload the page and show the message that lets the user know they dont have anymore projects..
+        }
+    } catch (error) {
+        console.error("Error with marking project as complete:", error.message);
+        alert("Failed to mark project as complete: " + (error?.message || String(error)));
+        completeProjectButton.innerHTML = originalIcon; 
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        completeProjectButton.disabled = false; // enable the button again after function is complete.
+    }
+}
+
+async function completeTask(taskId, completeBtn) {
+    const complete = confirm("Mark this task as completed?");
+    if (!complete) {
+        return;
+    }
+
+    try {
+        const originalIcon = completeBtn.innerHTML;
+        completeBtn.innerHTML = '<i data-lucide = "loader-2" class = "spinner"></i>';
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        completeBtn.disabled = true; // user has clicked button.
+
+        const { data: task, error: fetchError } = await supabase
+            .from("task")
+            .select("*")
+            .eq("task_id", taskId)
+            .single();
+
+        if (fetchError) {
+            throw fetchError;
+        }
+
+        // put the task into completed tasks table
+        // basically transferring everything from OG tasks table into our completed tasks table
+        const { error: archiveError } = await supabase
+            .from("completed_tasks")
+            .insert({
+                task_id: task.task_id,
+                project_id: task.project_id,
+                supabase_uid: task.supabase_uid,
+                name: task.name,
+                description: task.description,
+                sense_of_urgency: task.sense_of_urgency,
+                status: task.status,
+                due_at: task.due_at
+            });
+
+        if (archiveError) {
+            throw archiveError;
+        }
+
+        // delete tasks from OG task table
+        const { error: deleteError } = await supabase
+            .from("task")
+            .delete()
+            .eq("task_id", taskId);
+
+        if (deleteError) {
+            throw deleteError;
+        }
+
+        // remove from actual page
+        const taskCard = completeBtn.closest('.task-card');
+        taskCard.remove();
+
+        const tasksSection = document.querySelector('.tasks-section');
+        const remainingTasks = document.querySelectorAll('.task-card');
+        // if user deletes their last task, inform them that there are no more tasks (zero tasks)
+        if (remainingTasks.length === 0) {
+            tasksSection.innerHTML = `
+                <h3>Tasks</h3>
+                <p> No tasks yet. </p>
+            `;
+        } 
+    } catch (error) {
+        console.error("Error completing the task:", error.message);
+        alert("Failed to complete task: " + (error?.message || String(error)));
+        completeBtn.innerHTML = originalIcon;
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        completeBtn.disabled = false; // enable the button to be pressed again.
+    }
+}
+
 
 // Search bar 
 document.addEventListener('DOMContentLoaded', () => {

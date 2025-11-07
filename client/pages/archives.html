@@ -9,8 +9,18 @@
   <link rel="stylesheet" href="../css/archives.css" />
 </head>
 
-<body class="archive-page">
+<body>
   <div class="wrapper">
+    <header>
+      <a href="./index.html"><h2>Task Manager</h2></a>
+      <nav>
+          <ul class= "nav__links">
+              <li><a href = "./projects.html">Projects</a></li>
+              <li><a href = "./archives.html">Archives</a></li>
+              <li><a href="#" id="navAccount">My account</a></li>
+          </ul>
+      </nav>
+    </header>
 
     <main class="archive-main">
       <section class="archive-header">
@@ -86,5 +96,8 @@
       </section>
     </main>
   </div>
+  <script type = "module" src="../js/supabaseClient.js"></script>
+  <script type = "module" src="../js/navigation.js"></script>
+  <script type = "module" src="../js/archives.js"></script>
 </body>
 </html>
