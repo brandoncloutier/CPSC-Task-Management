@@ -1,0 +1,131 @@
+/* Page scaffold */
+.archive-page .archive-main{
+  min-height:100vh;
+  width:100%;
+  padding-top:40px; 
+}
+
+/* Header text */
+.archive-header{
+  max-width:960px;
+  width:min(92vw,960px);
+  margin:0 auto 1.25rem;
+  text-align:center;
+}
+.archive-title{ font:700 32px Georgia, serif; margin-bottom:6px; }
+.archive-subtitle{ color:#374151; font:500 16px Georgia, serif; }
+
+/* Search (static only) */
+.archive-controls{
+  margin:14px auto 0;
+  display:grid; grid-template-columns:1fr; gap:10px;
+  max-width:720px; width:min(92vw,720px);
+}
+.archive-control{ display:flex; }
+.archive-input{
+  width:100%; padding:12px 16px;
+  border:1px solid #d1d5db; border-radius:10px;
+  font:16px Georgia, serif; background:#fff; outline:none;
+}
+
+/* Sections */
+.archive-section{
+  max-width:960px; width:min(92vw,960px);
+  margin:22px auto 32px;
+}
+.archive-section-head{
+  display:flex; align-items:center; gap:10px; margin:10px 0 14px;
+}
+.archive-h2{
+  display:inline-flex; align-items:center; gap:8px;
+  font:700 26px Georgia, serif;
+}
+.icon{ display:inline-block; }
+
+/* Grid (one card per row always) */
+.archive-grid{
+  display:grid; grid-template-columns:1fr; gap:16px;
+}
+
+/* Chips and buttons */
+.chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; background:#f3f4f6; border:1px solid #e5e7eb;
+  border-radius:999px; font:500 13px Georgia, serif; color:#374151;
+}
+.chip-link{ text-decoration:none; color:#1f2937; }
+.btn-text{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 6px; border:none; background:transparent;
+  color:#111827; cursor:default; font:600 14px Georgia, serif; text-decoration:none;
+}
+.btn-text[disabled]{ opacity:.6; }
+
+/* Card base (shared look) */
+.card{
+  background:#fff; border:1px solid rgba(0,0,0,.06);
+  border-radius:16px; padding:1.25rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.card:hover{ box-shadow:0 14px 36px rgba(0,0,0,.12); transition:.25s; }
+
+/* Task card */
+.task-card{
+  background:#fff; border:1px solid rgba(0,0,0,.06);
+  border-radius:16px; padding:1.25rem; box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.task-card:hover{ box-shadow:0 14px 36px rgba(0,0,0,.12); transition:.25s; }
+.task-card .task-name{
+  margin:0 0 .25rem 0; font-size:1.25rem; color:#222; font-weight:700;
+}
+.task-card .task-desc{
+  margin:.25rem 0 .75rem 0; color:#555; line-height:1.5;
+}
+.task-card .task-meta{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; font-size:.95rem; color:#444;
+}
+
+/* Project card */
+.project-card{
+  background:#fff; 
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:16px; 
+  padding:1.25rem; 
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.project-card:hover{ 
+    box-shadow:0 14px 36px rgba(0,0,0,.12); 
+    transition:.25s;
+}
+.project-card .project-card-head{
+  display:flex; 
+  align-items:baseline; 
+  justify-content:space-between; 
+  gap:8px; 
+  margin-bottom:6px;
+}
+.project-card .project-name{ 
+    font-weight:700; 
+    font-size:1.1rem; 
+    color:#222; 
+    margin:0;
+}
+.project-card .project-desc{ 
+    margin:.25rem 0 .75rem 0; 
+    color:#555; 
+    line-height:1.5; 
+}
+.project-card .project-meta-row{ 
+    display:flex; 
+    flex-wrap:wrap; 
+    gap:6px; 
+    margin-top:8px; 
+}
+.project-card .project-actions-row{ 
+    display:flex; 
+    gap:12px; 
+    align-items:center; 
+    margin-top:10px; 
+}
+
+
