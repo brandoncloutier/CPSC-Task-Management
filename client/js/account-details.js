@@ -36,7 +36,7 @@ async function loadUserStatistics() {
     try {
         const { data: { user }} = await supabase.auth.getUser();
 
-        // get how many projects the user currently has created.
+        // get how many projects the user currently has created from supabase
         const { count: projectCount, error: projectError } = await supabase
             .from('project')
             .select('*', { count: 'exact', head: true})
@@ -46,7 +46,7 @@ async function loadUserStatistics() {
             throw projectError;
         }
 
-        // get how many total tasks the user has.
+        // get how many total tasks the user has from the supabase
         const { count: taskCount, error: taskError } = await supabase
             .from('task')
             .select('*', { count: 'exact', head: true})
@@ -56,8 +56,31 @@ async function loadUserStatistics() {
             throw taskError;
         }
 
-        // add in green checkmark button for projects so that user can mark entire project as completed.
+        // (ALREADY DONE) add in green checkmark button for projects so that user can mark entire project as completed.
 
+        // get total completed tasks from completed tasks table in supabase
+        const { count: completedTasksCount, error: completedTasksError } = await supabase
+            .from('completed_tasks')
+            .select('*', { count: 'exact', head: true}) // selecting all completed tasks...
+            .eq('supabase_uid', user.id); // we are hard coding the user ID but usually you wouldn't do this in an actual professional environment.
+
+        if (completedTasksError) {
+            console.error('Error with loading task count:', completedTasksError);
+        }
+
+        // get total completed projects from completed projects table in supabase
+        const { count: completedProjectsCount, error: completedProjectsError } = await supabase
+            .from('completed_projects')
+            .select('*', { count: 'exact', head: true}) // selecting all completed projects
+            .eq('supabase_uid', user.id);
+
+        if (completedProjectsError) {
+            console.error('Error when loading project count:', completedProjectsError);
+        }
+
+        // update the counts, if there is none then display 0.
+        document.getElementById('completedTasks').textContent = completedTasksCount || 0;
+        document.getElementById('completedProjects').textContent = completedProjectsCount || 0;
         document.getElementById('totalProjects').textContent = projectCount || 0;
         document.getElementById('totalTasks').textContent = taskCount || 0;
     } catch (error) {
