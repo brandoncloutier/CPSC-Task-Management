@@ -71,6 +71,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const projectId = deleteButton.dataset.id;
                 deleteProject(projectId, deleteButton);
             }
+
+            const completeButton = e.target.closest('.complete-project-button');
+            if (completeButton) {
+                const projectId = completeButton.dataset.id;
+                completeProject(projectId, completeButton);
+            }
         })
     } catch (error) {
         console.error("Error loading projects:", error.message);
@@ -120,6 +126,76 @@ async function deleteProject(projectId, deleteButton) {
         deleteButton.disabled = false;
     }
 }
+
+// complete the project if the user clicks the green checkmark.
+async function completeProject(projectId, completeProjectButton) {
+    const complete = confirm("Are you sure you want to mark this project as completed?");
+    if (!complete) {
+        return;
+    }
+
+    try {
+        const originalIcon = completeProjectButton.innerHTML;
+        completeProjectButton.innerHTML = '<i data-lucide="loader-2" class = "spinner"></i>';
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        completeProjectButton.disabled = true // user has clicked the button now.
+
+        const { data: project, error: fetchError } = await supabase 
+            .from('project')
+            .select("*")
+            .eq("project_id", projectId)
+            .single();
+
+        if (fetchError) {
+            throw fetchError;
+        }
+
+        // put the project into the completed projects table
+        // basically transferring everything from OG projects table into our completed projects table
+        const { error: archiveError } = await supabase
+            .from("completed_projects")
+            .insert({
+                project_id: project.project_id,
+                supabase_uid: project.supabase_uid,
+                name: project.name,
+                description: project.description,
+                duedate: project.duedate
+            });
+        if (archiveError) {
+            throw archiveError;
+        }
+        // delete the project from OG projects table
+        const { error: deleteError } = await supabase
+            .from("project")
+            .delete()
+            .eq("project_id", projectId);
+
+        if (deleteError) {
+            throw deleteError;
+        }
+
+        // now we remove the project from the actual page.
+        const projectCard = completeProjectButton.closest('.project-card');
+        projectCard.remove();
+        // if there are no projects left, then reload the page so that it can inform the user that there are no projects now.
+        const remainingProjects = document.querySelectorAll('.project-card');
+        if (remainingProjects.length === 0) { 
+            location.reload(); // this will reload the page and show the message that lets the user know they dont have anymore projects..
+        }
+    } catch (error) {
+        console.error("Error with marking project as complete:", error.message);
+        alert("Failed to mark project as complete: " + (error?.message || String(error)));
+        completeProjectButton.innerHTML = originalIcon; 
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+        completeProjectButton.disabled = false; // enable the button again after function is complete.
+    }
+}
+
+
 
 // Search bar 
 document.addEventListener('DOMContentLoaded', () => {
