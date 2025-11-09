@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <div class = "project-actions">
                 <button class = "edit-project-button">Edit Project</button>
                 <button class = "add-task-button">Add Task</button>
+                <button class = "add-recurring-task-button">Add Recurring Task</button>
             </div>
             <div class = "tasks-section">
                 <h3>Tasks</h3>
@@ -78,6 +79,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 url.searchParams.set("id", projectId);
                 window.location.href = url.toString();
             });
+        }
+
+        const addReccuringTaskBtn = document.querySelector(".add-recurring-task-button")
+        if (addReccuringTaskBtn) {
+            addReccuringTaskBtn.addEventListener("click", () => {
+                const url = new URL("./create-recurring-task.html", window.location.href)
+                url.searchParams.set("project_id", projectId)
+                window.location.href = url.toString()
+            })
         }
 
         // Load and render tasks for this project 

@@ -24,7 +24,6 @@ document.getElementById("createTaskForm").addEventListener("submit", async (even
 
   const { data: { session } } = await supabase.auth.getSession()
   const supabase_uid = session.user.id
-  console.log(supabase_uid)
 
   const { error } = await supabase
   .from("task")

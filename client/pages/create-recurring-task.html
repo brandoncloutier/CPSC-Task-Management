@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="../css/login.css" />
+        <link rel="stylesheet" href="../css/create-task.css" />
+        <link rel="stylesheet" href="../css/create-recurring-task.css" />
+        <title>Create Recurring Task</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <a href="./index.html"><h2>Task Manager</h2></a>
+                <nav>
+                    <ul class="nav__links">
+                        <li><a href="./projects.html">Projects</a></li>
+                        <li><a href="#" id="navAccount">My account</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class="project-main">
+                <section class="project-card">
+                    <div class="project-header">
+                        <button class="back-button" id="backBtn">Back</button>
+                    </div>
+
+                    <h1 class="title">Create a Recurring Task</h1>
+                    <p class="subtitle">Define the task, how often it repeats, and when it should start</p>
+
+                    <form id="createRecurringTaskForm">
+                        <div class="input-section">
+                            <label for="name">Task Name</label>
+                            <input id="name" type="text" placeholder="Task Name" required />
+                        </div>
+
+                        <div class="input-section">
+                            <label for="description">Description</label>
+                            <textarea id="description" rows="4" placeholder="Description"></textarea>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="input-section">
+                                <label for="sense_of_urgency">Urgency</label>
+                                <select id="sense_of_urgency">
+                                    <option value="low">low</option>
+                                    <option value="medium" selected>medium</option>
+                                    <option value="high">high</option>
+                                    <option value="critical">critical</option>
+                                </select>
+                            </div>
+
+                            <div class="input-section">
+                                <label for="status">Status</label>
+                                <select id="status">
+                                    <option value="todo" selected>todo</option>
+                                    <option value="in_progress">in_progress</option>
+                                    <option value="blocked">blocked</option>
+                                    <option value="done">done</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="input-section">
+                                <label for="start_date">Start date</label>
+                                <input id="start_date" type="date" />
+                            </div>
+
+                            <div class="input-section">
+                                <label for="due_in_days">Due in (days)</label>
+                                <input id="due_in_days" type="number" min="0" value="0" />
+                            </div>
+                        </div>
+
+                        <div class="row-2">
+                            <div class="input-section">
+                                <label for="interval_value">Repeat every</label>
+                                <input id="interval_value" type="number" min="1" value="1" required />
+                            </div>
+                            <div class="input-section">
+                                <label for="interval_unit">Interval unit</label>
+                                <select id="interval_unit">
+                                    <option value="day">day</option>
+                                    <option value="week" selected>week</option>
+                                    <option value="month">month</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-section checkbox-inline">
+                          <input id="is_active" type="checkbox" checked/>
+                          <label for="is_active">Active</label>
+                        </div>
+
+                        <button type="submit" id="createBtn">Create Recurring Task</button>
+                    </form>
+                </section>
+            </main>
+        </div>
+
+        <script type="module" src="../js/supabaseClient.js"></script>
+        <script type="module" src="../js/navigation.js"></script>
+        <script type="module" src="../js/create-recurring-task.js"></script>
+    </body>
+</html>
