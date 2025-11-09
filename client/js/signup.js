@@ -56,22 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal()
     })
 
-    // make the username for the user table... if no first name, use part of their email before the @.
-    // removes special characters, too.
-    function makeUsername(email, firstName) {
-        const base = (firstName && firstName.trim()) || (email?.split('@')[0] ?? 'user');
-        return base.toLowerCase().replace(/[^a-z0-9_]/g, '_').slice(0, 24);
-    }
-
     // insert or update the profile row in the "user" table.
     async function upsertProfile({id, email, firstName}) {
-        const username = makeUsername(email, firstName);
         const { error} = await supabase
             .from('user')
             .upsert(
                 {
                     supabase_uid: id,
-                    username,
                     email,
                     name: firstName || null // first name will be optional... some people won't provide their full name.
                 },
