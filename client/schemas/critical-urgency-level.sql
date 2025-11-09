@@ -1,0 +1,1 @@
+ALTER TYPE urgency_level ADD VALUE 'critical';
