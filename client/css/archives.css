@@ -62,7 +62,7 @@
 .icon { display: inline-block; }
 
 /* GRID (CARD CONTAINER) */
-.archive-grid {
+.archive-grid-projects, .archive-grid-tasks {
   display: grid; 
   grid-template-columns: 1fr; 
   gap: 16px;

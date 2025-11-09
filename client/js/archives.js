@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadCompletedProjects() {
     // finds container where completed projects will be shown to user
     // will target last archive-section which is the projects section
-    const projContainer = document.querySelector('.archive-section:last-child .archive-grid');
+    const projContainer = document.querySelector('.archive-grid-projects');
 
     // get the completed projects from the "completedProjects" table.
     const { data: projects, error } = await supabase
@@ -41,6 +41,7 @@ async function loadCompletedProjects() {
             </div>
         
         `;
+        console.log(projectCard.innerHTML)
         // append completed project card 
         projContainer.appendChild(projectCard);
     });
@@ -50,7 +51,7 @@ async function loadCompletedProjects() {
 async function loadCompletedTasks() {
     // first we find the container where the completed tasks are gonna be displayed
     // targets the first archive section which should be tasks section.
-    let tasksContainer = document.querySelector('.archive-grid');
+    let tasksContainer = document.querySelector('.archive-grid-tasks');
 
     // get info from completed tasks table
     const { data: tasks, error } = await supabase
