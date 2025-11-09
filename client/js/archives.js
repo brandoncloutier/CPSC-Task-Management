@@ -2,8 +2,8 @@ import { supabase } from './supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // loads completed projects and tasks from functions down below
-    await loadCompletedProjects();
     await loadCompletedTasks();
+    await loadCompletedProjects();
 });
 
 // load completed projects from database
