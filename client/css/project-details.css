@@ -20,7 +20,9 @@ header {
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
-    padding-top: 500px;
+    margin-top: 85px !important;
+    position: relative;
+    z-index:1;
 }
 
 .project-container {
@@ -265,10 +267,12 @@ a {
 }
 
 .wrapper {
-    height: 100vh;
+    /* height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    min-height: 100vh;
+    position: relative;
 }
 
 .delete-task-btn {

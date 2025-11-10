@@ -349,6 +349,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tasksSection = document.querySelector('.tasks-section')
             if (!tasksSection) return
 
+           const { data: recurring_tasks, error: fetchError } = await supabase
+                .from('recurring_task')
+                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, due_in_days, is_active')
+                .eq('project_id', projectId)
+            
+                if (fetchError) {
+                    console.error('Error loading recurring tasks: ', fetchError)
+                    body.innerHTML = '<p>Error Fetching recurring tasks</p>'
+                    return
+                }
+
+                if (!recurring_tasks || recurring_tasks.length === 0) {
+                    return
+                }
+
             const recurringSection = document.createElement('div')
             recurringSection.className = 'recurring-section'
             tasksSection.insertAdjacentElement('afterend', recurringSection)
@@ -365,7 +380,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `
 
-
             const body = recurringSection.querySelector('.recurring-body')
             const toggle = recurringSection.querySelector('.recurring-toggle')
             const header = recurringSection.querySelector('.recurring-header')
@@ -381,21 +395,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             })
 
-            const { data: recurring_tasks, error: fetchError } = await supabase
-                .from('recurring_task')
-                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, due_in_days, is_active')
-                .eq('project_id', projectId)
             
-                if (fetchError) {
-                    console.error('Error loading recurring tasks: ', fetchError)
-                    body.innerHTML = '<p>Error Fetching recurring tasks</p>'
-                    return
-                }
-
-                if (!recurring_tasks || recurring_tasks.length === 0) {
-                    body.innerHTML = '<p>No recurring tasks</p>'
-                    return
-                }
 
                 const list = document.createElement('div')
                 list.className = 'tasks-list'
