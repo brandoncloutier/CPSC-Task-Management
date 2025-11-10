@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const { data: recurring_tasks, error: fetchError } = await supabase
                 .from('recurring_task')
-                .select('recurring_task_id, name, description, interval_value, interval_unit, next_run_at, is_active')
+                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, due_in_days, is_active')
                 .eq('project_id', projectId)
             
                 if (fetchError) {
@@ -398,24 +398,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
 
                 const list = document.createElement('div')
-                list.className = 'recurring-list'
+                list.className = 'tasks-list'
 
                 recurring_tasks.forEach(recurring_task => {
                     const item = document.createElement('div')
-                    item.className = 'recurring-card'
-                    item.style.border = '1px solid black'
-                    item.style.borderRadius = '10px'
-                    item.style.padding = '1px 2px'
-                    item.style.marginBottom = '5px'
+                    item.className = 'task-card'
 
-                    const next = recurring_task.next_run_at ? new Date(recurring_task.next_run_at).toLocaleString() : '-'
+                    //const next = recurring_task.next_run_at ? new Date(recurring_task.next_run_at).toLocaleString().replace(',', ' •') : '-'
                     item.innerHTML =  `
-                        <h4>${recurring_task.name}</h4>
-                        <p>${recurring_task.description}</p>
-                        <p>
-                            Every ${recurring_task.interval_value} ${recurring_task.interval_unit}
-                            Next run: ${next}
-                        </p>
+                        <h4 class = "task-name">${recurring_task.name}</h4>
+                        <p class = "task-desc">${recurring_task.description || 'No description made.'}</p>
+                        <div class = "task-meta">
+                            <span><bold>Every:</bold> ${recurring_task.interval_value} ${recurring_task.interval_unit}</span>
+                            <span><bold>• Next Due Date:</bold> ${recurring_task.due_in_days} days </span>
+                            <span><strong>• Status:</strong> ${recurring_task.status}</span>
+                            <span><strong>• Urgency:</strong> ${recurring_task.sense_of_urgency}</span>
+                        </div>
                     `
                     list.appendChild(item)
                 })
