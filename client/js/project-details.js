@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <span><bold>Every:</bold> ${recurring_task.interval_value} ${recurring_task.interval_unit}</span>
                             <span><bold>• Next Due Date:</bold> ${recurring_task.due_in_days} days </span>
                             <span><strong>• Status:</strong> ${recurring_task.status}</span>
-                            <span><strong>• Urgency:</strong> ${recurring_task.sense_of_urgency}</span>
+                            <span class="urgency-tag urgency-${recurring_task.sense_of_urgency.toLowerCase()}">• Urgency:</strong> ${recurring_task.sense_of_urgency}</span>
                         </div>
                     `
                     list.appendChild(item)
