@@ -177,30 +177,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             tasksSection.appendChild(list);
             lucide.createIcons();
-            // Search bar 
-            const container = document.querySelector('.tasks-list');
-            const input = document.getElementById('searchTasks');
-            const noResultsEl = document.getElementById('taskNoResults');
-            if (container && input) {
-                const getCards = () => Array.from(container.querySelectorAll('.task-card'));
-
-                const filter = (term) => {
-                    const q = term.toLowerCase().trim();
-                    let visible = 0;
-
-                    getCards().forEach(card => {
-                        const name = card.querySelector('.task-name')?.textContent?.toLowerCase() || '';
-                        const desc = card.querySelector('.task-desc')?.textContent?.toLowerCase() || '';
-                        const match = !q || name.includes(q) || desc.includes(q);
-                        card.style.display = match ? '' : 'none';
-                        if (match) visible++;
-                    });
-
-                    if (noResultsEl) noResultsEl.hidden = (visible > 0) || !q;
-                };
-
-                input.addEventListener('input', (e) => filter(e.target.value));
-            }
 
             list.addEventListener("click", (event) => {
                 const editBtn = event.target.closest(".edit-task-btn")
@@ -264,6 +240,75 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
             })
 
+        }
+        // we used Deepseek and Gemini to help create our searchBar() function.
+        function searchBar() {
+            const input = document.getElementById('searchTasks');
+            const noResultsEl = document.getElementById('taskNoResults');
+            
+            // if the search doesn't exist just exit.
+            if (!input) {
+                return; 
+            }
+
+            input.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                let visible = 0; // this will count how many visible tasks there are.
+                let recurringCount = 0;
+                // searching through each regular task (not recurring task)
+                const regularTasks = document.querySelectorAll('.tasks-list .task-card')
+                // 
+                regularTasks.forEach(task => {
+                    const isVisible = filterTaskCard(task, query);
+                    if (isVisible) {
+                        visible++; // if the task is visible, then increment counter.
+                    }
+                });
+                // searching through each recurring task
+                const recurringTasks = document.querySelectorAll('.recurring-body .task-card');
+                recurringTasks.forEach(task => {
+                    const isVisible = filterTaskCard(task, query);
+                    if (isVisible) {
+                        visible++; // increment again if recurring task is visible.
+                        recurringCount++;
+                    }
+                });
+
+                // this function will basically automatically expand the recurring tasks dropdown if there is a match
+                if (recurringCount > 0 && query !== '') { // if the recurringCount is greater than 0 and the query is not empty...
+                    const recurringBody = document.querySelector('.recurring-body');
+                    const expandToggle = document.querySelector('.reccuring-toggle');
+
+                    if (recurringBody) {
+                        recurringBody.style.display = "block";
+                        // update the toggle of the recurring dropdown to expand
+                        if (expandToggle) {
+                            expandToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>';
+                        }
+                    }
+
+
+                }
+                if (noResultsEl) {
+                    // the "no results" message stays hidden if the visible count is above 0 (there are tasks that match the user's search) or if the query is empty (user hasn't searched for anything yet...).
+                    noResultsEl.hidden = visible > 0 || query === '';
+                }
+            })
+
+        }
+        function filterTaskCard(card, query) {
+            if (!query) {
+                card.style.display = '' // show each task/recurring task card if the user hasn't searched for anything yet.
+                return true;
+            }
+
+            const name = card.querySelector('.task-name')?.textContent?.toLowerCase() || '';
+            const desc = card.querySelector('.task-desc')?.textContent?.toLowerCase() || '';
+            const match = name.includes(query) || desc.includes(query); // this checks if the query matches the name or the description
+            // this means that the user can search for a task based on it's name OR based on it's description.
+
+            card.style.display = match ? '' : 'none'; // show the match if it's found.
+            return match;
         }
 
         
@@ -424,6 +469,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Call once to render tasks
         await loadTasks();
         await loadRecurringTasks()
+        searchBar();
 
 
     } catch (error) {
