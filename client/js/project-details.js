@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <div class="task-meta">
                             <span><strong>Due:</strong> ${fmt(t.due_at)}</span>
                             ${t.status ? ` • <span><strong>Status:</strong> ${t.status}</span>` : ''}
-                            ${t.sense_of_urgency ? ` • <span><strong>Urgency:</strong> ${t.sense_of_urgency}</span>` : ''}
+                            ${t.sense_of_urgency ? ` • <span class="urgency-tag urgency-${t.sense_of_urgency.toLowerCase()}"> ${t.sense_of_urgency}</span>` : ''}
                         </div>
                     </div>
                     <div class="task-actions">

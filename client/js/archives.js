@@ -74,7 +74,7 @@ async function loadCompletedTasks() {
             <p class = "task-desc">${task.description || 'No description.'}</p>
             <div class = "task-meta">
                 ${task.status ? `<span class = "chip urgency-${task.status}"> Archived Status: ${task.status}</span>` : ''}
-                ${task.sense_of_urgency ? `<span class = "chip urgency-${task.sense_of_urgency}"> Archived Urgency: ${task.sense_of_urgency}</span>` : ''}
+                ${task.sense_of_urgency ? `<span class="chip urgency-tag urgency-${task.sense_of_urgency.toLowerCase()}"> Archived Urgency: ${task.sense_of_urgency}</span>` : ''}
                 <span class="chip">Completed on ${new Date(task.completed_at).toLocaleDateString()}</span>
             </div>
             <div class = "task-actions-row">

@@ -329,3 +329,32 @@ a {
 .recurring-body {
     display: none;
 }
+
+/* Urgency Tag Colors */
+.urgency-tag {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Low = Green */
+.urgency-low {
+    background-color: #16a34a;   
+}
+
+/* Medium = Yellow */
+.urgency-medium {
+    background-color: #ca8a04;  
+}
+
+/* High = Orange */
+.urgency-high {
+    background-color: #ea580c;  
+}
+
+/* Critical = Red */
+.urgency-critical {
+    background-color: #dc2626;  
+}
