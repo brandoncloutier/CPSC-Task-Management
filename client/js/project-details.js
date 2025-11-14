@@ -479,5 +479,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         container.innerHTML = `<p style="color: red;">Failed to load project details: ${msg}</p>`;
     }
 });
-
-
