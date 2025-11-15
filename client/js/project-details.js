@@ -440,7 +440,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             })
 
-            
 
                 const list = document.createElement('div')
                 list.className = 'tasks-list'
@@ -459,11 +458,75 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <span><strong>• Status:</strong> ${recurring_task.status}</span>
                             <span class="urgency-tag urgency-${recurring_task.sense_of_urgency.toLowerCase()}">• Urgency:</strong> ${recurring_task.sense_of_urgency}</span>
                         </div>
-                    `
+                        <div class = "task-actions">
+                            <button
+                                class = "edit-task-btn" 
+                                data-recurring-task-id=${recurring_task.recurring_task_id}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                class = "delete-task-btn"
+                                data-recurring-task-id=${recurring_task.recurring_task_id}
+                            >
+                                Delete
+                            </button>
+                        </div>
+
+                    `;
                     list.appendChild(item)
-                })
+                });
                 body.innerHTML = ''
                 body.appendChild(list)
+
+                // edit task event listener
+                list.addEventListener("click", (event) => {
+                    const editBtn = event.target.closest(".edit-task-btn")
+                    if (!editBtn) return
+
+                    const recurringTaskId = editBtn.getAttribute("data-recurring-task-id")
+                    if (!recurringTaskId) return
+                    alert("coming soon..")
+                    // gonna have to implement the recurring task edit html later on.
+                    // const url = new URL("./recurring-task-edit.html", window.location.href);
+                    // url.searchParams.set('id', taskId)
+                    // window.location.href = url.toString()
+                })
+
+                list.addEventListener("click", async (event) => {
+                    const btn = event.target.closest('.delete-task-btn')
+                    if (!btn) return
+
+                    const recurringTaskId = btn.getAttribute("data-recurring-task-id")
+                    if (!recurringTaskId) return
+
+                    const ok = window.confirm("Delete this task?")
+                    if (!ok) return
+
+                    const card = btn.closest('.task-card')
+
+                    try {
+                        const { error: deleteError } = await supabase
+                            .from("recurring_task")
+                            .delete()
+                            .eq('recurring_task_id', recurringTaskId)
+
+                        if (deleteError) throw deleteError
+
+                        if (card) card.remove()
+
+                        const remainingTasks = list.querySelectorAll(".task-card").length
+                        if (remainingTasks === 0) {
+                            body.innerHTML = '<p> No recurring tasks yet. Use "Add Recurring Tasks" to create one. </p>'
+                        }
+                    } catch (error) {
+                        console.error("Failed: ", error)
+                        alert(`Failed to properly delete the task: ${error.message}`)
+                    }
+
+                })
+
+                
         }
 
         // Call once to render tasks
