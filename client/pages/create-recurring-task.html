@@ -64,13 +64,13 @@
 
                         <div class="row-2">
                             <div class="input-section">
-                                <label for="start_date">Start date</label>
-                                <input id="start_date" type="date" />
+                                <label for="first_task_due_date">Start date</label>
+                                <input id="first_task_due_date" type="date" />
                             </div>
 
                             <div class="input-section">
-                                <label for="due_in_days">Due in (days)</label>
-                                <input id="due_in_days" type="number" min="0" value="0" />
+                                <label for="remind_days_before">Remind X Days Before</label>
+                                <input id="remind_days_before" type="number" min="0" value="0" />
                             </div>
                         </div>
 
@@ -87,11 +87,6 @@
                                     <option value="month">month</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="input-section checkbox-inline">
-                          <input id="is_active" type="checkbox" checked/>
-                          <label for="is_active">Active</label>
                         </div>
 
                         <button type="submit" id="createBtn">Create Recurring Task</button>

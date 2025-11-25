@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
            const { data: recurring_tasks, error: fetchError } = await supabase
                 .from('recurring_task')
-                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, due_in_days, is_active')
+                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, remind_days_before, is_active')
                 .eq('project_id', projectId)
             
                 if (fetchError) {

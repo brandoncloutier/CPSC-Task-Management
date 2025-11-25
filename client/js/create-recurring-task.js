@@ -22,15 +22,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const description = document.getElementById("description").value
     const sense_of_urgency = document.getElementById("sense_of_urgency").value
     const status = document.getElementById("status").value
-    const start_date = document.getElementById("start_date").value
-    const due_in_days_val = document.getElementById("due_in_days").value
+    const first_task_due_date = document.getElementById("first_task_due_date").value
+    const remind_days_before_val = document.getElementById("remind_days_before").value
     const interval_value = document.getElementById("interval_value").value
     const interval_unit = document.getElementById("interval_unit").value
-    const is_active = document.getElementById("is_active").checked
 
     const { data: { session } } = await supabase.auth.getSession()
     const supabase_uid = session.user.id
 
+    const getCurrentDate = () => {
+      const date = new Date()
+      date.setHours(0, 0, 0, 0)
+
+      return (date)
+    }
     const newRecurringTask = {
       project_id: Number(projectId),
       supabase_uid: supabase_uid,
@@ -38,12 +43,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       description: description || null,
       sense_of_urgency: sense_of_urgency || null,
       status: status || null,
-      due_in_days: due_in_days_val ? Number(due_in_days_val) : 0,
+      remind_days_before: remind_days_before_val ? Number(remind_days_before_val) : 0,
       interval_value: interval_value ? Number(interval_value) : 1,
       interval_unit: interval_unit,
-      start_date: start_date || new Date(),
-      is_active: is_active
+      first_task_due_date: first_task_due_date ? new Date(first_task_due_date?.replace(/-/g, '\/')?.replace(/T.+/, '')) : getCurrentDate(),
     }
+    // Set next_task_due_date
+    newRecurringTask.next_task_due_date = newRecurringTask.first_task_due_date
+
+    // Set next_reminder_run_at
+    newRecurringTask.next_reminder_run_at = new Date(newRecurringTask.next_task_due_date)
+    newRecurringTask.next_reminder_run_at.setDate(newRecurringTask.next_reminder_run_at.getDate() - newRecurringTask.remind_days_before)
 
     const { data: insertedRecurringTask, error: insertError } = await supabase
       .from("recurring_task")
