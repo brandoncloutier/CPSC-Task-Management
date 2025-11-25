@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
            const { data: recurring_tasks, error: fetchError } = await supabase
                 .from('recurring_task')
-                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, remind_days_before, is_active')
+                .select('recurring_task_id, name, description, interval_value, interval_unit, sense_of_urgency, status, remind_days_before, is_active, next_task_due_date')
                 .eq('project_id', projectId)
             
                 if (fetchError) {
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <p class = "task-desc">${recurring_task.description || 'No description made.'}</p>
                         <div class = "task-meta">
                             <span><bold>Every:</bold> ${recurring_task.interval_value} ${recurring_task.interval_unit}</span>
-                            <span><bold>• Next Due Date:</bold> ${recurring_task.due_in_days} days </span>
+                            <span><bold>• Next Due Date:</bold> ${recurring_task.next_task_due_date}</span>
                             <span><strong>• Status:</strong> ${recurring_task.status}</span>
                             <span class="urgency-tag urgency-${recurring_task.sense_of_urgency.toLowerCase()}">• Urgency:</strong> ${recurring_task.sense_of_urgency}</span>
                         </div>
