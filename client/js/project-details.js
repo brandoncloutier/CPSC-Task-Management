@@ -486,11 +486,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     const recurringTaskId = editBtn.getAttribute("data-recurring-task-id")
                     if (!recurringTaskId) return
-                    alert("coming soon..")
-                    // gonna have to implement the recurring task edit html later on.
-                    // const url = new URL("./recurring-task-edit.html", window.location.href);
-                    // url.searchParams.set('id', taskId)
-                    // window.location.href = url.toString()
+                    
+                    const url = new URL("./edit-recurring-task.html", window.location.href)
+                    url.searchParams.set('id', recurringTaskId)
+                    window.location.href = url.toString()
                 })
 
                 list.addEventListener("click", async (event) => {

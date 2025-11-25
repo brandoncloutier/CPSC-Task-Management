@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8"/>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0"/>
+        <title>Edit Recurring Task</title>
+        <link rel = "stylesheet" href = "../css/main.css"/>
+        <link rel = "stylesheet" href = "../css/login.css"/>
+        <link rel = "stylesheet" href = "../css/create-task.css"/>
+    </head>
+    <body>
+        <div class = "wrapper">
+            <header>
+                <a href = "./index.html"><h2>Task Manager</h2></a>
+                <nav>
+                    <ul class = "nav__links">
+                        <li><a href = "./projects.html">Projects</a></li>
+                        <li><a href = "#" id = "navAccount">My account</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class = "project-main">
+                <section class = "project-card">
+                    <div class = "project-header">
+                        <button class="back-button" id = "backBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-big-left-icon lucide-arrow-big-left"><path d="M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z"/></svg>
+                            Back
+                        </button>
+                    </div>
+
+                    <h1 class = "title">Edit Recurring Task</h1>
+                    <p class = "subtitle">Update the recurring task details and save your details.</p>
+
+                    <form id = "editRecurringTaskForm">
+                        <div class="input-section">
+                            <label for = "name">Task name</label>
+                            <input id = "name" type = "text" placeholder = "Task Name" required/>
+                        </div>
+
+                        <div class = "input-section">
+                            <label for = "description">Description</label>
+                            <textarea id = "description" rows = "4" placeholder = "Description"></textarea>
+                        </div>
+
+                        <div class = "row-2">
+                            <div class = "input-section">
+                                <label for = "sense_of_urgency">Urgency</label>
+                                <select id="sense_of_urgency">
+                                    <option value = "low">low</option>
+                                    <option value = "medium">medium</option>
+                                    <option value = "high">high</option>
+                                    <option value = "critical">critical</option>
+                                </select>
+                            </div>
+                            <div class = "input-section">
+                                <label for = "status">Status</label>
+                                <select id = "status">
+                                    <option value="todo">todo</option>
+                                    <option value="in-progress">in-progress</option>
+                                    <option value="blocked">blocked</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class = "row-2">
+                            <div class = "input-section">
+                                <label for = "interval_value">Repeat every</label>
+                                <input id = "interval_value" type = "number" min="1" value = "1" required/>
+
+                            </div>
+                            <div class = "input-section">
+                                <label for ="interval_unit">Interval unit</label>
+                                <select id = "interval_unit">
+                                    <option value="day">day</option>
+                                    <option value="week">week</option>
+                                    <option value="month">month</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class = "input-section">
+                            <label for = "remind_days_before">Remind days before</label>
+                            <input id = "remind_days_before" type = "number" min="0" value = "0"/>
+                        </div>
+
+                        <div class = "input-section">
+                            <label for ="is_active">Active</label>
+                            <select id = "is_active">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="updateBtn">Update Recurring Task</button>
+                    </form>
+                </section>
+            </main>
+        </div>
+        <script type = "module" src = "../js/supabaseClient.js"></script>
+        <script type = "module" src = "../js/navigation.js"></script>
+        <script type = "module" src = "../js/edit-recurring-task.js"></script>
+    </body>
+</html>

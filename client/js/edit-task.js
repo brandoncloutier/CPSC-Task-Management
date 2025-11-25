@@ -48,7 +48,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       url.searchParams.set('id', projectIdForReturn)
       window.location.href = url.toString()
     })
-  }
+  } else if (backBtn) { // meaning we can't find the project...
+        backBtn.addEventListener('click', (event) => {
+            event.preventDefault()
+            window.location.href = './projects.html'
+        })
+    }
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault()
