@@ -305,6 +305,71 @@ header {
   margin-top: 6px !important; 
 }
 
+.project-tasks {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.project-tasks h4 {
+  margin: 0 0 12px 0;
+  color: #222;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.archived-task {
+  background: #f9fafb;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 0;
+}
+
+.archived-task:hover{
+  background: #f3f4f6;
+  transition: background-color 0.2s;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  flex: 1;
+}
+
+.task-actions {
+  text-align: right;
+  margin-top: 12px;
+}
+
+.no-tasks {
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin: 0;
+}
+
+
+
 /* PROJECT CARD SPACING ADJUSTMENTS (gap reduction) */
 .project-card .project-card-head {
   display: flex !important;
