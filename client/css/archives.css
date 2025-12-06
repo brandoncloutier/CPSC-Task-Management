@@ -188,6 +188,75 @@
   margin-top: 10px; 
 }
 
+/* project status badges */
+.project-status-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.project-status-badge.completed {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.project-status-badge.active {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+}
+
+.project-status-chip.completed-chip {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.project-status-chip.active-chip {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.task-description {
+  margin: 8px 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding-left: 4px;
+  border-left: 2px solid #e5e7eb;
+}
+
+.status-chip {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border-color: #d1d5db;
+}
+
+.loading {
+  text-align: center;
+  color: #6b7280;
+  padding: 40px;
+  font-style: italic;
+}
+
+.project-context {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+.project-context small {
+  display: block;
+  line-height: 1.3;
+}
+.project-context .project-desc {
+  font-style: italic;
+  margin-top: 2px;
+}
+
 /* LOGIN.CSS / MAIN.CSS OVERRIDES FOR ARCHIVE PAGE */
 
 /* Fix layout conflicts */

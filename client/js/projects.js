@@ -152,6 +152,53 @@ async function completeProject(projectId, completeProjectButton) {
             throw fetchError;
         }
 
+        // since we are marking the ENTIRE project as complete, we can safely assume that the tasks are also complete as well since the ENTIRE project has been marked done.
+        // so get all the tasks for this project and automatically mark them as completed too.
+
+        const { data: tasks, error: tasksError } = await supabase
+            .from('task')
+            .select('*')
+            .eq('project_id', projectId)
+            .eq('supabase_uid', project.supabase_uid);
+
+        if (tasksError) {
+            throw tasksError;
+        }
+
+        // now move the tasks to completed_tasks table as well
+        if (tasks && tasks.length > 0) {
+            const completedTasks = tasks.map(task => ({
+                task_id: task.task_id,
+                project_id: task.project_id,
+                supabase_uid: task.supabase_uid,
+                name: task.name,
+                description: task.description,
+                sense_of_urgency: task.sense_of_urgency,
+                status: task.status,
+                due_date: task.due_at,
+                completed_at: new Date().toISOString()
+            }));
+
+            const {error: completeTasksError} = await supabase
+                .from('completed_tasks')
+                .insert(completedTasks) // insert the completed tasks.
+
+            if (completeTasksError) {
+                throw completeTasksError;
+            }
+
+            // now delete the tasks from OG tasks table
+            const { error: deleteTaskError} = await supabase
+                .from('task')
+                .delete()
+                .eq('project_id', projectId)
+                .eq('supabase_uid', project.supabase_uid);
+            
+            if (deleteTaskError) {
+                throw deleteTaskError;
+            }
+        }   
+
         // put the project into the completed projects table
         // basically transferring everything from OG projects table into our completed projects table
         const { error: archiveError } = await supabase
