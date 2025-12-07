@@ -64,7 +64,7 @@ async function loadCompletedTasks() {
         return;
     }
 
-    // get all the project IDs from tasks
+    // get all the project IDs from tasks... we are doing this in order to create a chip/badge under completed tasks card that lets the user know which corresponding project it belongs to.
     const projectIds = [...new Set(tasks.map(task => task.project_id))];
 
     // get project details from ACTIVE projects table first
@@ -77,7 +77,7 @@ async function loadCompletedTasks() {
       console.error('Error loading projects: ', projectsError);
     }
 
-    // also try to get project details from completed projects table
+    // if the project is archived/completed, then get project details from completed projects table.
     const { data: completedProjects, error: completedError} = await supabase
       .from('completed_projects')
       .select('project_id, name')
@@ -95,7 +95,7 @@ async function loadCompletedTasks() {
         projMap[project.project_id] = project.name;
       });
     }
-    // then add completed projects in case active projects doesn't work
+    // then add completed projects in case active projects doesn't work (the project is archived)
     if (completedProjects) {
       completedProjects.forEach(project => {
         projMap[project.project_id] = project.name;
@@ -109,7 +109,7 @@ async function loadCompletedTasks() {
         // get project name from map/default
         const projectName = projMap[task.project_id] || `Project #${task.project_id}`;
 
-        // includes the task name, description, and date that it was completed
+        // includes the task name, description, date that it was completed, and a chip/badge that shows WHICH project it belongs to.
         taskCard.innerHTML = `
             <h3 class = "task-name">${task.name}</h3>
             <p class = "task-desc">${task.description || 'No description.'}</p>
