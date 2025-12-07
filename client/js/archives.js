@@ -2,87 +2,155 @@ import { supabase } from './supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // loads completed projects and tasks from functions down below
-    await loadCompletedProjectsAndTasks();
-    // await loadCompletedTasks();
-    // await loadCompletedProjects();
+    await loadCompletedTasks();
+    await loadCompletedProjects();
 });
 
-function setupSearch() {
-  const searchInput = document.getElementById('archiveSearch');
-  if (!searchInput) {
-    return;
-  }
+// load completed projects from database
+async function loadCompletedProjects() {
+    // finds container where completed projects will be shown to user
+    // will target last archive-section which is the projects section
+    const projContainer = document.querySelector('.archive-grid-projects');
 
-  searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
+    // get the completed projects from the "completedProjects" table.
+    const { data: projects, error } = await supabase
+        .from('completed_projects')
+        .select("*")
+        .order('completed_at', { ascending: false });
+    if (error) {
+        console.error('Error loading completed projects:', error);
+        return;
+    }
 
-    document.querySelectorAll('.project-card').forEach(projectCard => {
-      const projectText = projectCard.textContent.toLowerCase();
-      const projectName = projectCard.querySelector('.project-name')?.textContent?.toLowerCase() || '';
-      const projectDesc = projectCard.querySelector('.project-desc')?.textContent?.toLowerCase() || '';
+    projContainer.innerHTML = ''; // clears existing content within container...
+    projects.forEach(project => { // loops through each completed project and creates card for it
+        const projectCard = document.createElement('div');
+        projectCard.className = 'project-card';
+        // includes the project name, description, and date that it was completed.
+        projectCard.innerHTML = `
+            <header class="project-card-head">
+                <h3 class = "project-name"> ${project.name} </h3>
+            </header>
 
-      const projectMatches = !query || projectText.includes(query) || projectName.includes(query) || projectDesc.includes(query);
-
-      if (projectMatches) {
-        projectCard.style.display = 'block';
-
-        if (query) {
-          const taskElements = projectCard.querySelectorAll('.archived-task');
-          let taskVisible = false;
-
-          taskElements.forEach(task => {
-            const taskText = task.textContent.toLowerCase();
-            const taskName = task.querySelector('.task-title')?.textContent?.toLowerCase() || '';
-            const taskDesc = task.querySelector('.task-description')?.textContent?.toLowerCase() || '';
-
-            const taskMatches = taskText.includes(query) || taskName.includes(query) || taskDesc.includes(query);
-            
-            task.style.display = taskMatches ? 'block' : 'none';
-            if (taskMatches) {
-              taskVisible = true;
-            }
-          
-          });
-          const noTasks = projectCard.querySelector('.no-tasks');
-          if (noTasks) {
-            noTasks.style.display = taskVisible ? 'none' : 'block';
-          }
-        } else {
-          projectCard.querySelectorAll('.archived-task').forEach(task => {
-            task.style.display = 'block';
-          });
-        }
-      } else {
-        const taskElements = projectCard.querySelectorAll('.archived-task');
-        let anyTaskMatches = false;
-
-        taskElements.forEach(task => {
-          const taskText = task.textContent.toLowerCase();
-          const taskName = task.querySelector('.task-title')?.textContent?.toLowerCase() || '';
-          const taskDesc = task.querySelector('.task-description')?.textContent?.toLowerCase() || '';
-
-          if (taskText.includes(query) || taskName.includes(query) || taskDesc.includes(query)) {
-            anyTaskMatches = true;
-          }
-        });
-
-        projectCard.style.display = anyTaskMatches ? 'block' : 'none';
-
-        if (anyTaskMatches) {
-          taskElements.forEach(task => {
-            const taskText = task.textContent.toLowerCase();
-            const taskName = task.querySelector('.task-title')?.textContent?.toLowerCase() || '';
-            const taskDesc = task.querySelector('.task-description')?.textContent?.toLowerCase() || '';
-
-            const taskMatches = taskText.includes(query) || taskName.includes(query) || taskDesc.includes(query);
-
-            task.style.display = taskMatches ? 'block' : 'none';
-          });
-        }
-      }
+            <p class = "project-desc">${project.description || 'No description made.'}</p>
+            <div class = "project-meta-row">
+                <span class = "chip"> Completed on ${new Date(project.completed_at).toLocaleDateString()}</span>
+            </div>
+            <div class = "project-actions-row">
+                <button class = "btn-text restore-btn" data-id="${project.completed_project_id}"> Restore </button>
+            </div>
+        
+        `;
+        console.log(projectCard.innerHTML)
+        // append completed project card 
+        projContainer.appendChild(projectCard);
     });
-  });
 }
+
+// loads completed tasks...
+async function loadCompletedTasks() {
+    // first we find the container where the completed tasks are gonna be displayed
+    // targets the first archive section which should be tasks section.
+    let tasksContainer = document.querySelector('.archive-grid-tasks');
+
+    // get info from completed tasks table
+    const { data: tasks, error } = await supabase
+        .from('completed_tasks')
+        .select("*")
+        .order('completed_at', { ascending: false });
+
+    if (error) {
+        console.error('Error loading completed tasks: ', error);
+        return;
+    }
+
+    // get all the project IDs from tasks
+    const projectIds = [...new Set(tasks.map(task => task.project_id))];
+
+    // get project details from ACTIVE projects table first
+    const { data: projects, error: projectsError } = await supabase
+      .from('project')
+      .select('project_id, name') // fetching the project name
+      .in('project_id', projectIds);
+
+    if (projectsError) {
+      console.error('Error loading projects: ', projectsError);
+    }
+
+    // also try to get project details from completed projects table
+    const { data: completedProjects, error: completedError} = await supabase
+      .from('completed_projects')
+      .select('project_id, name')
+      .in('project_id', projectIds);
+
+    if (completedError) {
+      console.error('Error loading completed projects: ', completedError);
+    }
+
+    // create a map of project_id to the project name
+    const projMap = {};
+    // we add active projects (projects that are in progress) first
+    if (projects) {
+      projects.forEach(project => {
+        projMap[project.project_id] = project.name;
+      });
+    }
+    // then add completed projects in case active projects doesn't work
+    if (completedProjects) {
+      completedProjects.forEach(project => {
+        projMap[project.project_id] = project.name;
+      })
+    }
+    
+    tasksContainer.innerHTML = ''; // clear any existing content from tasks container
+    tasks.forEach(task => { // loops through each task and creates card for it.
+        const taskCard = document.createElement('div');
+        taskCard.className = 'task-card';
+        // get project name from map/default
+        const projectName = projMap[task.project_id] || `Project #${task.project_id}`;
+
+        // includes the task name, description, and date that it was completed
+        taskCard.innerHTML = `
+            <h3 class = "task-name">${task.name}</h3>
+            <p class = "task-desc">${task.description || 'No description.'}</p>
+            <div class = "task-meta">
+                <span class="chip project-chip clickable-project" 
+                  data-project-id="${task.project_id}">
+                  📁 ${projectName}
+                </span>
+                ${task.status ? `<span class = "chip urgency-${task.status}"> Archived Status: ${task.status}</span>` : ''}
+                ${task.sense_of_urgency ? `<span class = "chip urgency-${task.sense_of_urgency}"> Archived Urgency: ${task.sense_of_urgency}</span>` : ''}
+                <span class="chip">Completed on ${new Date(task.completed_at).toLocaleDateString()}</span>
+            </div>
+            <div class = "task-actions-row">
+                <button class = "btn-text restore-btn" data-id="${task.completed_task_id}"> Restore </button>
+            </div>
+        `;
+        // append completed task card
+        tasksContainer.appendChild(taskCard);
+    });
+}
+
+document.addEventListener('click', async(e) => {
+  const projChip = e.target.closest('.clickable-project');
+  if (projChip) {
+    const projectId = projChip.dataset.projectId;
+    const projectName = projChip.dataset.projectName;
+
+    // check if the project is active (not marked as completed)
+    const {data:activeProject} = await supabase
+      .from('project')
+      .select('project_id')
+      .eq('project_id', projectId)
+      .single();
+
+    if (activeProject) {
+      window.location.href = `./project-details.html?id=${projectId}`;
+    } else {
+      alert(`"This project has been marked as completed and is currently archived. Restore it first to view it's details!`);
+    }
+  }
+});
 
 // Restore a completed task back into the task table
 async function restoreTask(completedTaskId) {
@@ -128,7 +196,7 @@ async function restoreTask(completedTaskId) {
   }
 }
 
-// Restore a completed project and all its tasks  
+// Restore a completed project back into the project table
 async function restoreProject(completedProjectId) {
   // Get the current logged in user
   const {
@@ -141,7 +209,21 @@ async function restoreProject(completedProjectId) {
     throw authError || new Error('Not logged in');
   }
 
-  // get completed project details
+  // Get user_id from the user table
+  const { data: userRow, error: userRowError } = await supabase
+    .from('user')
+    .select('user_id')
+    .eq('supabase_uid', user.id)
+    .single();
+
+  if (userRowError || !userRow) {
+    console.error('Error getting user_id from user table:', userRowError);
+    throw userRowError || new Error('User profile not found');
+  }
+
+  const userId = userRow.user_id;
+
+  // Fetch the completed project
   const { data: project, error: fetchError } = await supabase
     .from('completed_projects')
     .select('*')
@@ -149,176 +231,80 @@ async function restoreProject(completedProjectId) {
     .single();
 
   if (fetchError || !project) {
+    console.error('Error fetching completed project:', fetchError);
     throw fetchError || new Error('Project not found');
   }
 
-  // get all tasks for this completed project.
-  const {data: projectTasks, error: tasksError} = await supabase
-    .from('completed_tasks')
-    .select('*')
-    .eq('project_id', project.project_id)
-    .eq('supabase_uid', user.id);
+  // Insert into project table 
+  const { error: insertError } = await supabase.from('project').insert({
+    project_id: project.project_id, 
+    user_id: userId,
+    supabase_uid: project.supabase_uid,
+    name: project.name,
+    description: project.description,
+    duedate: project.duedate, 
+  });
 
-  if (tasksError) {
-    console.error('Error fetching project tasks:', tasksError);
+  if (insertError) {
+    console.error(
+      'Error inserting restored project:',
+      insertError.message,
+      insertError.details,
+      insertError
+    );
+    throw insertError;
   }
 
-  // get the user id
-  const { data: userRow, error: userError} = await supabase
-    .from('user')
-    .select('user_id')
-    .eq('supabase_uid', user.id)
-    .single();
+  // Delete from completed_projects
+  const { error: deleteError } = await supabase
+    .from('completed_projects')
+    .delete()
+    .eq('completed_project_id', completedProjectId);
 
-  if (userError || !userRow) {
-    throw userError || new Error('User profile not found');
+  if (deleteError) {
+    console.error('Error deleting from completed_projects:', deleteError);
+    throw deleteError;
   }
-  const userId = userRow.user_id;
+}
 
-  // start restoring project to project table
-  try {
-    const {error: insertProjectError} = await supabase.from('project').insert({
-      project_id: project.project_id,
-      supabase_uid: project.supabase_uid,
-      name: project.name,
-      description: project.description,
-      duedate: project.duedate,
-    });
-    if (insertProjectError) {
-      throw insertProjectError;
-    }
-
-    // restore all the tasks for this project if any exist...
-    if (projectTasks && projectTasks.length > 0) {
-      const tasksToRestore = projectTasks.map(task => ({
-        project_id: task.project_id,
-        supabase_uid: task.supabase_uid,
-        name: task.name,
-        description: task.description,
-        sense_of_urgency: task.sense_of_urgency,
-        status: task.status,
-        due_at: task.due_date
-      }));
-
-      const { error: insertTasksError } = await supabase  
-        .from('task')
-        .insert(tasksToRestore); // restore the tasks
-      
-      if (insertTasksError) {
-        throw insertTasksError;
-      }
-
-      // delete all the tasks from completed tasks table
-      const { error: deleteTasksError} = await supabase
-        .from('completed_tasks')
-        .delete()
-        .eq('project_id', project.project_id)
-        .eq('supabase_uid', user.id);
-
-      if (deleteTasksError) {
-        throw deleteTasksError;
-      }
-    }
-
-      // now finally just delete the project from completed projects table
-      const {error: deleteProjectError}= await supabase
-        .from('completed_projects')
-        .delete()
-        .eq('completed_project_id', completedProjectId);
-
-      if (deleteProjectError) {
-        throw deleteProjectError;
-      }
-    } catch (error) {
-      console.error('Error in restoring project:', error);
-      throw error;
-    }
-  }
 
 // Event listener for restore button 
 document.addEventListener('click', async (e) => {
-  const projectBtn = e.target.closest('.restore-project-btn');
-  if (projectBtn) {
-    const projectId = projectBtn.dataset.id; // get the project id
-    if (!projectId) {
-      return;
+  const btn = e.target.closest('.restore-btn');
+  if (!btn) return;
+
+  const card = btn.closest('.task-card, .project-card');
+  if (!card) return;
+
+  const id = btn.dataset.id;
+
+  const confirmRestore = window.confirm('Restore this item? It will move back to your projects/tasks list.');
+  if (!confirmRestore) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Restoring...';
+
+  try {
+    if (card.classList.contains('task-card')) {
+      await restoreTask(id);
+    } else if (card.classList.contains('project-card')) {
+      await restoreProject(id);
     }
 
-    const confirmRestore = window.confirm('Restore this project? It will move back to your projects list.');
-
-    if (!confirmRestore) { // if user says no to restoring, then just return and dont restore
-      return; 
-    }
-
-    projectBtn.disabled = true;
-    projectBtn.textContent = 'Restoring...'; // if they say yes, then restore project
-
-    try {
-      await restoreProject(projectId); // call function to restore project (pass in the project ID)
-      const projectCard = projectBtn.closest('.project-card');
-      projectCard.remove(); // remove the project card from archives since it's now been restored.
-    } catch (error) {
-      console.error('Error restoring project:', error);
-      projectBtn.disabled = false; // re-enable the button so user can try again
-      projectBtn.textContent = 'Restore Project';
-      alert('We could not restore your project. Please try again!');
-    }
-    return;
+    // If successful, remove card 
+    card.remove();
+  } catch (err) {
+    console.error('Error restoring item:', err);
+    btn.disabled = false;
+    btn.textContent = 'Restore';
+    alert('Could not restore item. Please try again.');
   }
-  // now check for task restore button
-  const taskBtn = e.target.closest('.restore-task-btn');
-  if (taskBtn) {
-    const taskId = taskBtn.dataset.id;
-    if (!taskId) {
-      return;
-    }
+});
 
-    const confirmRestore = window.confirm('Restore this task? It will move back to your tasks list under the corresponding project.');
-    if (!confirmRestore) {
-      return;
-    }
-
-    taskBtn.disabled = true; // disable button
-    taskBtn.textContent = 'Restoring...';
-
-    try {
-      await restoreTask(taskId); // now we call the restoreTask function.
-      const taskElement = taskBtn.closest('.archived-task');
-      taskElement.remove(); // now remove it from the archives page since it's been restored.
-
-      // now we update the task count since we just removed the task from archives
-      const projectCard = taskElement.closest('.project-card');
-      const taskCountChip = projectCard.querySelector('.chip:nth-child(2)'); // second chip on project card
-      if (taskCountChip) {
-        const currentCount = parseInt(taskCountChip.textContent) || 0; // get the current count
-        const newCount = currentCount - 1; // subtract one since a task has just been removed.
-
-        if (newCount > 0) { // if we still have tasks left then update the chip count
-          taskCountChip.innerHTML = `
-            <svg width="16" height = "16" viewBox = "0 0 24 24" fill = "none" stroke="currentColor" stroke-width="2">
-              <path d = "M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            ${newCount} completed task${newCount !== 1 ? 's': ''}
-          `;
-        } else {
-          taskCountChip.remove(); // if its 0 or less, just remove the chip completely (no completed tasks)
-
-          // check if any tasks are still left
-          const tasksList = projectCard.querySelector('.tasks-list');
-          const remainingTasks = tasksList.querySelectorAll('.archived-task');
-
-          if (remainingTasks.length === 0) { // if no tasks are left.
-            tasksList.innerHTML = '<p class="no-tasks">No tasks were completed for this project.</p>';
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Error restoring task:', error);
-      taskBtn.disabled = false;
-      taskBtn.textContent = 'Restore Task';
-      alert('We could not restore the task. Please try again!');
-    }
-    return;
-  }
+// Search bar
+document.getElementById('archiveSearch')?.addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.task-card, .project-card').forEach(c => {
+    c.style.display = c.innerText.toLowerCase().includes(q) ? '' : 'none';
+  });
 });

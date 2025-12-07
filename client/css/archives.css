@@ -393,6 +393,28 @@ header {
   gap: 12px;
 }
 
+/* project chip styling */
+.chip.project-chip {
+  background-color: #4f46e5;
+  color: white;
+  border: 1px solid #4338ca;
+}
+
+.chip.project-chip:hover {
+  background-color: #4338ca;
+  cursor: pointer;
+}
+
+.clickable-project {
+  cursor:pointer;
+  transition: all 0.2s;
+}
+
+.clickable-project:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 .archived-task {
   background: #f9fafb;
   border: 1px solid rgba(0,0,0,0.06);
